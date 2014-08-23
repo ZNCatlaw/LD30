@@ -1,0 +1,36 @@
+body {
+  padding-top: 0;
+}
+
+div {
+  border: 2px solid lightblue;
+}
+
+.height.two-thirds {
+  height: 66%;
+}
+
+.height.one-sixth {
+  height: 16%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.card {
+  @extend .inline-block;
+  border: 1px solid red;
+}
