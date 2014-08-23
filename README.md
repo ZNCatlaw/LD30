@@ -1,124 +1,31 @@
-# LD30
+LD30 -- Connected Worlds
+------------------------
 
-...
+The 30th Ludum Dare. Something about Tarot cards.
 
-Generated with [Raygun](https://github.com/carbonfive/raygun).
+There is an infinity spread on the table, and a place for your collection of up to seven cards at the bottom. At the top of the table there is a spot for the "context card" (world) and a modal area. The modal area either houses the deck and the draw (three face up cards that have been "drawn" in the current world), or the hands that have been submitted for the current world. Next to your collection of cards there is a modal submit button. The modal elements are available when the current world is one of the 4 hub worlds (see below).
 
-# Development
+The infinity spread is made up of 21 major arcana. In the center are "The World" and "The Wheel of Fortune", next to them there are 4 arcana representing the 4 hub worlds. The remaining 16 arcana are separated into to loops of 8 cards. Some of the cards begin face up, and some face down.
 
-## Getting Started
+Clicking a face up major arcana card brings it to the fore. The player can then choose to "travel" to that world, setting it as the current context. When a major arcana is the current context it is missing from the spread. When the player travels to a new world, the current context card returns to the deck.
 
-### Requirements
+When the player travels to a new world, if that world is not a hub world, a draw of 3 cards is pulled from the deck according to that world's rules. When the three cards are drawn, two things can happen. If the card that would be drawn is a minor arcana, it moves from the deck and fills a spot in the draw. If the card drawn is a major arcana, the corresponding card in the spread turns face up. The player can click cards in the draw to move them to her collection.
 
-To run the specs or fire up the server, be sure you have these installed:
+When the player travels to a hub world, the deck is replaced by 4 slots which can either be empty, or contain "hands" of cards already completed for that world.
 
-* Ruby 2.1 (see [.ruby-version](.ruby-version)).
-* PostgreSQL 9.x (```brew install postgresql```) with superuser 'postgres' with no password (```createuser -s postgres```).
-* PhantomJS for Capybara and Javascript testing (```brew install phantomjs```).
+The two major arcana at the center of the spread are peculiar. The Wheel of Fortune is the starting context, and begins as the context card. When the world is The Wheel, the draw will always contain only major arcana. The World is the card under the wheel of fortune, and when it is the contect card the game ends if the player has built a sufficient number of hands (otherwise The World is spent and play continues). In order to travel to The World, the player must _always_ first travel to The Wheel.
 
-### First Time Setup
+#### Objects ####
 
-After cloning, run these commands to install missing gems and prepare the database.
+- [ ] The Context Card
+- [ ] Major Arcana
+- [ ] Minor Arcana
 
-    $ gem install bundler
-    $ bundle
-    $ rake db:setup db:sample_data
+#### Zones ####
 
-Note, ```rake db:sample_data``` loads a small set of data for development. Check out [db/sample_data.rb](db/sample_data.rb)
-for details.
-
-### Running the Specs
-
-To run all Ruby and Javascript specs.
-
-    $ rake
-
-### Running the Application Locally
-
-    $ foreman start
-    $ open http://localhost:3000
-
-## Conventions
-
-### Git
-
-* Branch ```development``` is auto-deployed to acceptance.
-* Branch ```master``` is auto-deployed to production.
-* Create feature branches off of ```development``` using the naming convention ```(features|chores|bugs)/a-brief-description-######```, where ###### is the tracker id.
-* Rebase your branch before merging into ```development``` to produce clean merge bubbles.
-* Retain merge commits for multi-commit branches when merging into ```development``` (e.g. ```git merge --no-ff branchname```).
-* Craft atomic commits that make sense on their own and can be easily cherry-picked or reverted if necessary.
-
-### Code Style
-
-Generally speaking, follow the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide). Additionally, these are other guidelines adopted by the team:
-
-**Always use double quotes for test/spec descriptions, unless the subject is a class/module.**
-
-```ruby
-describe SomeController do
-  context "when logged in as an admin" do
-    describe "#some_method" do
-      it "does some thing"
-    end
-  end
-end
-````
-
-## Additional/Optional Development Details
-
-### Code Coverage (local)
-
-Coverage for the ruby specs:
-
-    $ COVERAGE=true rspec
-
-Code coverage is reported to Code Climate on every CI build so there's a record of trending.
-
-### Using Guard
-
-Guard is configured to run ruby and jasmine specs, and also listen for livereload connections.
-
-    $ bundle exec guard
-
-### Using Mailcatcher
-
-    $ gem install mailcatcher
-    $ mailcatcher
-    $ open http://localhost:1080/
-
-Learn more at [mailcatcher.me](http://mailcatcher.me/). And please don't add mailcatcher to the Gemfile.
-
-### Continuous Integration and Deployment with CircleCI
-
-This project is configured for continuous integration and deployment with CircleCI and Heroku.
-
-Check out [circle.yml](circle.yml) and [bin/deploy.sh](bin/deploy.sh) for details.
-
-# Server Environments
-
-### Hosting
-
-Acceptance and Production are hosted on Heroku under the _email@example.com_ account.
-
-### Environment Variables
-
-Several common features and operational parameters can be set using environment variables.
-
-**Required**
-
-* ```SECRET_KEY_BASE``` - Secret key base for verfying signed cookies. Should be 30+ random characters and secret!
-
-**Optional**
-
-* ```HOSTNAME``` - Canonical hostname for this application. Other incoming requests will be redirected to this hostname.
-* ```BASIC_AUTH_PASSWORD``` - Enable basic auth with this password.
-* ```BASIC_AUTH_USER``` - Set a basic auth username (not required, password enables basic auth).
-* ```PORT``` - Port to listen on (default: 3000).
-* ```UNICORN_WORKERS``` - Number of unicorn workers to spawn (default: development 1, otherwise 3).
-* ```UNICORN_BACKLOG``` - Depth of unicorn backlog (default: 16).
-
-### Third Party Services
-
-* Heroku for hosting.
-* CircleCI for continuous integration and deployment.
+- [ ] Collection
+- [ ] Deck
+- [ ] Spread
+- [ ] World
+- [ ] Draw (contains up to three cards)
+- [ ] Hands (for each world)
