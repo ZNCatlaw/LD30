@@ -250,6 +250,7 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    underscore-rails (1.6.0)
     unicorn (4.8.3)
       kgio (~> 2.6)
       rack
@@ -297,4 +298,5 @@ DEPENDENCIES
   spring-commands-rspec
   turbolinks
   uglifier
+  underscore-rails
   unicorn

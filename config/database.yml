@@ -5,7 +5,7 @@ development: &default
   adapter: postgresql
   encoding: unicode
   database: LD30_development
-  username: postgres
+  username: zeigfreid
   pool: 5
   timeout: 5000
 
