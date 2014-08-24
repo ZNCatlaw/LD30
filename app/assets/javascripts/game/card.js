@@ -13,7 +13,8 @@ var Card = (function () {
             zone: DECK,
             order: "major",
             draw_size: options.draw_size,
-            filter: options.filter
+            filter: options.filter,
+            init: options.init
         };
     };
 }());
@@ -29,14 +30,39 @@ var CARDS = [
     new Card({ name: "Le Chariot", number: 7}),
     new Card({ name: "La Justice", number: 8}),
     new Card({ name: "L'Hermite", number: 9 }),
-    new Card({ name: "La Roue de Fortune", number: 10,
+    new Card({
+        name: "La Roue de Fortune",
+        number: 10,
         filter: function (card) {
             return card.order === "major";
         }
     }),
     new Card({ name: "La Force", number: 11 }),
     new Card({ name: "Le Pendu", number: 12 }),
-    new Card({ name: "L'Arcane sans nom", number: 13 }),
+    new Card({
+        name: "L'Arcane sans nom",
+        number: 13,
+        // put all cards back in the deck
+        // unless those cards are part of hands
+        filter: function (card) {
+            return card.name === "La Roue de Fortune";
+        },
+        init: function (deck) {
+            _.each(deck.cards, function (card) {
+                // flip all face up arcana cards
+                if (card.zone === SPREAD || card.zone === CONTEXT) {
+                    var $card = getCardHTML(card.number);
+                    $card.removeClass("face-up");
+                    $card.addClass("face-down");
+                }
+
+                // put everything back in the deck
+                if (card.zone !== HAND) {
+                    card.zone = DECK;
+                }
+            });
+        }
+    }),
     new Card({ name: "Tempérance", number: 14 }),
     new Card({ name: "Le Diable", number: 15 }),
     new Card({ name: "La Maison Diew", number: 16 }),

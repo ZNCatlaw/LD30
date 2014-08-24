@@ -63,8 +63,6 @@ var Deck = (function () {
                     draw.push(card);
                 });
 
-                console.log(_.pluck(draw, "order"));
-
                 return draw;
             }
         }
