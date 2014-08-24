@@ -51,7 +51,7 @@ var CARDS = [
             _.each(deck.cards, function (card) {
                 // flip all face up arcana cards
                 if (card.zone === SPREAD || card.zone === CONTEXT) {
-                    var $card = getCardHTML(card.number);
+                    var $card = getMajorCardHTML(card.number);
                     $card.removeClass("face-up");
                     $card.addClass("face-down");
                 }

@@ -12,23 +12,24 @@ NEXTSTEPS
   [ ] Hands
 
 [ ] basic flow
-  [ ] clicking an arcana changes the context
+  [x] clicking an arcana changes the context
     [ ] changing the context changes the submit callback
-    [ ] changing the context may run some code (eg, death puts all major arcana back in the deck)
-    [ ] changing the context adds a callback to the draw verb
-    [ ] changing the context draws a number of cards
+    [x] changing the context may run some code (eg, death puts all major arcana back in the deck)
+    [x] changing the context adds a callback to the draw verb
+    [x] changing the context draws a number of cards
+    [x] clears the draw (puts it back in the deck)
   [ ] clicking cards in the draw collects them
   [ ] clicking cards in hand selects them
   [ ] Hub worlds present the hand slots
     [ ] clicking submit moves them to the slots
-  [ ] when there are no arcana revealed, death is revealed
-    [ ] death covers all cards, and then reveals
+  [x] when there are no arcana revealed, death is revealed
+    [x] death covers all cards, and then reveals the wheel
 
 [ ] initially restrict the deck:
   [ ] hub worlds
-  [ ] the wheel
+  [x] the wheel
   [ ] the world
-  [ ] death
+  [x] death
   [ ] l'etoile draw three minor arcana
 
 #### DECK ####

@@ -1,5 +1,6 @@
+var SUITS
+
 var Deck = (function () {
-    var MINOR = 56, MAJOR = 22, SUITS, NAMES, WEIGHTS = 14;
 
     SUITS = ["coins", "cups", "swords", "batons"];
 
@@ -12,7 +13,7 @@ var Deck = (function () {
             cards.push({
                 name: "minor" + index,
                 number: index % WEIGHTS,
-                suit: index % SUITS.length,
+                suit: Math.floor(index / WEIGHTS),
                 zone: DECK,
                 order: "minor"
             });
@@ -41,7 +42,9 @@ var Deck = (function () {
             },
 
             // get the nth minor arcana from the deck
-            getMinor: function getMajor (index) {
+            getMinor: function getMinor (index) {
+                console.log(index);
+
                 return this.cards[this.minor[index]]
             },
 
@@ -64,6 +67,18 @@ var Deck = (function () {
                 });
 
                 return draw;
+            },
+
+            // just for testing
+            countMinor: function () {
+                var count = 0;
+
+                _.each(this.minor, function (index) {
+                    if (this.cards[index].zone === DECK) count++;
+
+                }, this);
+
+                return count;
             }
         }
     }
