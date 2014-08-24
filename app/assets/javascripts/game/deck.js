@@ -45,12 +45,27 @@ var Deck = (function () {
                 return this.cards[this.minor[index]]
             },
 
-            // randomly draws one card from DECK
-            drawOne: function drawOne () {
-                var deck = _.first(_.partition(this.cards, inDeck)),
-                    index = Math.floor((Math.random() * 100)) % deck.length;
+            // returns a number of cards
+            drawCards: function drawCards (context) {
+                var size = context.draw_size(), draw = [],
+                    deck = _.first(_.partition(this.cards, inDeck)), index;
 
-                return deck[index];
+                deck = _.filter(deck, context.filter);
+                size = Math.min(size, deck.length);
+
+                _.times(size, function () {
+                    // splice modifies the array in place, and returns an array of
+                    // the elements removed
+                    var index = Math.floor((Math.random() * 100)) % deck.length,
+                        card = deck.splice(index, 1)[0];
+
+                    card.zone = DRAW;
+                    draw.push(card);
+                });
+
+                console.log(_.pluck(draw, "order"));
+
+                return draw;
             }
         }
     }
