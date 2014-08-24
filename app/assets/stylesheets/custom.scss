@@ -30,7 +30,23 @@ div {
   display: inline-block;
 }
 
-.card {
+.card-container {
   @extend .inline-block;
-  border: 1px solid red;
+  border: 1px solid grey;
+}
+
+.card {
+  border: none;
+}
+
+.card.face-up {
+  background-color: white;
+}
+
+.card.face-down {
+  background-color: chocolate;
+}
+
+.hidden {
+  visibility: hidden;
 }
