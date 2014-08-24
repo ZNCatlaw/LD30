@@ -1,33 +1,16 @@
 var Deck = (function () {
-    var MINOR = 56, MAJOR = 8, SUITS, NAMES, WEIGHTS = 14;
+    var MINOR = 56, MAJOR = 22, SUITS, NAMES, WEIGHTS = 14;
 
     SUITS = ["coins", "cups", "swords", "batons"];
-    NAMES = ["Le Mat", /*"Le Bateleur", "La Papesse", "L'Impératrice", "L'Empereur", "Le Pape",
-        "L'Amoureux", "Le Chariot", "La Justice",*/ "L'Hermite", "La Roue de Fortune",
-    "La Force", /*"Le Pendu",*/ "L'Arcane sans nom", /*"Tempérance", "Le Diable",
-    "La Maison Dieu",*/ "L'Étoile", /*"La Lune", "Le Soleil",*/ "Le Jugement", "Le Monde"];
 
     return function Deck () {
         // builds the deck, 21 major arcana and 56 minor
-        var deck = {}, minor = [], major = [], cards = [],
+        var minor = [], major = [], cards = [],
             inDeck, nameFromIndex;
-
-        nameFromIndex = function nameFromIndex (index, options) {
-            var name = "NONE";
-
-            if (options != null && options.major == true) {
-                name = NAMES[index];
-
-            } else {
-                name = "MINOR" + index;
-            }
-
-            return name;
-        };
 
         _.times(MINOR, function buildMinor (index) {
             cards.push({
-                name: nameFromIndex(index, { major: false }),
+                name: "minor" + index,
                 number: index % WEIGHTS,
                 suit: index % SUITS.length,
                 zone: DECK,
@@ -38,12 +21,7 @@ var Deck = (function () {
         });
 
         _.times(MAJOR, function buildMajor (index) {
-            cards.push({
-                name: nameFromIndex(index, { major: true }),
-                zone: DECK,
-                order: "major",
-                number: index
-            });
+            cards.push(CARDS[index]);
 
             major.push(MINOR + index);
         });

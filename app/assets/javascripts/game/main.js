@@ -1,15 +1,21 @@
 // globals for elements in the layout
-var $spread, $context, setContext,
-    DECK = 0, CONTEXT = 1;
+var $spread, $context, setContext, drawCards, getElementByCardNumber,
+    DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3,
+    THE_WHEEL = 10;
 
 setContext = function setContext (card) {
     var $card = $("[data-major-number=" + card.number + "]"), $slot,
         $old = $context.children();
 
     if ($old.length > 0) {
-        $slot = $("[data-slot-number=" + $old.data("major-number") + "]");
-        $old.toggleClass("face-up", "face-down");
+        var number = $old.data("major-number"),
+            old = deck.getMajor(number);
+
+        $slot = $("[data-slot-number=" + number + "]");
+        $old.toggleClass("face-up face-down");
         $old.remove();
+        old.zone = DECK;
+
         $slot.append($old);
     }
 
@@ -19,9 +25,6 @@ setContext = function setContext (card) {
 
     // update the submit callback
     // run the init callback
-    // update the draw filter
-    // run draw(number)
-    //
 }
 
 
@@ -31,8 +34,8 @@ $(function () {
     var a = deck.drawOne();
     var b = deck.drawOne();
 
-    console.log(a);
-    console.log(b);
+$(function () {
+    var deck = new Deck(), draw, selectMajorArcana;
 
     $spread = $("[role=spread]");
     $context = $("[role=context]");
@@ -42,7 +45,7 @@ $(function () {
     setContext(deck.getMajor(2));
 
     $spread.on("click", ".card", function () {
-        var number = $(this).data("major-number");
+        if (this.className === "card face-down") return false;
 
         setContext(deck.getMajor(number));
     });

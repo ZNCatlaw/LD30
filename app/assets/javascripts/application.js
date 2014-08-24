@@ -15,4 +15,6 @@
 //= require underscore
 //= require turbolinks
 //= require bootstrap
+//
+//= require game/main
 //= require_tree .
