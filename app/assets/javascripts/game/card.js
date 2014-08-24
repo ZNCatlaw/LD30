@@ -48,6 +48,7 @@ var CARDS = [
             return card.name === "La Roue de Fortune";
         },
         init: function (deck) {
+            var $body = $("body");
             _.each(deck.cards, function (card) {
                 // flip all face up arcana cards
                 if (card.zone === SPREAD || card.zone === CONTEXT) {
@@ -56,9 +57,12 @@ var CARDS = [
                     $card.addClass("face-down");
                 }
 
-                // put everything back in the deck
+                // put all minor arcana back in the deck
                 if (card.zone !== HAND) {
+                    var $card = getMinorCardHTML(card.number, card.suit);
                     card.zone = DECK;
+                    $card.remove();
+                    $body.append($card);
                 }
             });
         }

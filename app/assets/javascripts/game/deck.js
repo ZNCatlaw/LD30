@@ -42,10 +42,8 @@ var Deck = (function () {
             },
 
             // get the nth minor arcana from the deck
-            getMinor: function getMinor (index) {
-                console.log(index);
-
-                return this.cards[this.minor[index]]
+            getMinor: function getMinor (number, suit) {
+                return this.cards[this.minor[suit * WEIGHTS + number]]
             },
 
             // returns a number of cards

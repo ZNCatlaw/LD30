@@ -18,12 +18,15 @@ NEXTSTEPS
     [x] changing the context adds a callback to the draw verb
     [x] changing the context draws a number of cards
     [x] clears the draw (puts it back in the deck)
-  [ ] clicking cards in the draw collects them
+  [x] clicking cards in the draw collects them
   [ ] clicking cards in hand selects them
   [ ] Hub worlds present the hand slots
     [ ] clicking submit moves them to the slots
   [x] when there are no arcana revealed, death is revealed
     [x] death covers all cards, and then reveals the wheel
+
+[ ] rather than keeping all the hidden minor cards on the body,
+    we should just keep them in an array indexed by number/suit
 
 [ ] initially restrict the deck:
   [ ] hub worlds

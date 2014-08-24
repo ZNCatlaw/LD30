@@ -1,6 +1,7 @@
 // globals for elements in the layout
-var $spread, $context, $draw, setContext, drawCards, getElementByCardNumber,
-    DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4,
+var $spread, $context, $draw, $collection,
+    setContext, drawCards, getElementByCardNumber,
+    DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
     THE_WHEEL = 10, NAMELESS_ARCANA = 13;
 
@@ -71,7 +72,7 @@ clearDraw = function clearDraw (deck) {
         var $child = $(child),
             number = $child.data("minor-number"),
             suit = $child.data("minor-suit"),
-            card = deck.getMinor(suit * WEIGHTS + number);
+            card = deck.getMinor(number, suit);
 
         card.zone = DECK;
         $child.remove();
@@ -82,9 +83,10 @@ clearDraw = function clearDraw (deck) {
 $(function () {
     var deck = new Deck(), draw, selectMajorArcana;
 
-    $spread  = $("[role=spread]");
+    $spread = $("[role=spread]");
     $context = $("[role=context]");
-    $draw    = $("[role=draw]");
+    $draw = $("[role=draw]");
+    $collection = $("[role=collection]");
 
     // to start the game, we build the spread and then select the wheel
     buildSpread(deck);
@@ -117,5 +119,16 @@ $(function () {
         if ($(".card.face-up[data-major-number]").length === 1) {
             flipMajorCard(deck.getMajor(NAMELESS_ARCANA));
         }
+    });
+
+    $draw.on("click", ".card", function () {
+        var $this = $(this),
+            number = $this.data("minor-number"),
+            suit = $this.data("minor-suit"),
+            card = deck.getMinor(number, suit);
+
+        card.zone = COLLECTION;
+        $this.remove();
+        $collection.append($this);
     });
 })
