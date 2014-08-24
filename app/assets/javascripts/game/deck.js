@@ -15,7 +15,8 @@ var Deck = (function () {
                 number: index % WEIGHTS,
                 suit: Math.floor(index / WEIGHTS),
                 zone: DECK,
-                order: "minor"
+                order: "minor",
+                selected: false
             });
 
             minor.push(index);

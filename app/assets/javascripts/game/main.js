@@ -131,4 +131,15 @@ $(function () {
         $this.remove();
         $collection.append($this);
     });
+
+    $collection.on("click", ".card", function () {
+        var $this = $(this),
+            number = $this.data("minor-number"),
+            suit = $this.data("minor-suit"),
+            card = deck.getMinor(number, suit);
+
+        // select the card
+        // TODO all "removing" of cards should go through a method
+        // so that the select effect can be removed
+    });
 })
