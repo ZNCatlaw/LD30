@@ -8,15 +8,19 @@ gem 'rack-canonical-host'
 gem 'rails', '~> 4.1.5'
 gem 'pg'
 
-gem 'slim-rails'
-gem 'sass-rails'
-gem 'bootstrap-sass'
-gem 'jquery-rails'
-gem 'underscore-rails'
-gem 'coffee-rails'
 gem 'turbolinks'
 gem 'simple_form', '~> 3.1.0.rc2'                      # Bootstrap 3 support
-gem 'uglifier'
+
+group :development, :assets do
+  gem 'slim-rails'
+  gem 'sass-rails'
+  gem 'bootstrap-sass'
+  gem 'jquery-rails'
+  gem 'underscore-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
+  gem 'asset_sync'
+end
 
 gem 'awesome_print'
 
