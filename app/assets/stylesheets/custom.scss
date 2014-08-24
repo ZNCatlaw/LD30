@@ -58,3 +58,11 @@ div {
 .hidden {
   visibility: hidden;
 }
+
+.selected {
+  box-shadow: 0px 0px 10px blue;
+}
+
+[role=submit] {
+  background-color: red;
+}

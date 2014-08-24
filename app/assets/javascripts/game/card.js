@@ -59,17 +59,14 @@ var CARDS = [
 
                 // put all minor arcana back in the deck
                 if (card.zone !== HAND) {
-                    var $card = getMinorCardHTML(card.number, card.suit);
-                    card.zone = DECK;
-                    $card.remove();
-                    $body.append($card);
+                    removeMinorCardHTML(card);
                 }
             });
         }
     }),
     new Card({ name: "Tempérance", number: 14 }),
     new Card({ name: "Le Diable", number: 15 }),
-    new Card({ name: "La Maison Diew", number: 16 }),
+    new Card({ name: "La Maison Dieu", number: 16 }),
     new Card({ name: "L'Étoile", number: 17 }),
     new Card({ name: "La Lune", number: 18 }),
     new Card({ name: "Le Soleil", number: 19 }),

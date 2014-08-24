@@ -25,6 +25,8 @@ NEXTSTEPS
   [x] when there are no arcana revealed, death is revealed
     [x] death covers all cards, and then reveals the wheel
 
+[ ] right now the game starts with the nameless arcana, but
+    we want it to start with the world alone on the board
 [ ] rather than keeping all the hidden minor cards on the body,
     we should just keep them in an array indexed by number/suit
 

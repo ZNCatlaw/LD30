@@ -1,6 +1,6 @@
 // globals for elements in the layout
 var $spread, $context, $draw, $collection,
-    setContext, drawCards, getElementByCardNumber,
+    setContext, drawCards, getElementByCardNumber, selectMajorArcana,
     DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
     THE_WHEEL = 10, NAMELESS_ARCANA = 13;
@@ -11,6 +11,17 @@ getMajorCardHTML = function (number) {
 
 getMinorCardHTML = function (number, suit) {
     return $("[data-minor-number=" + number + "][data-minor-suit=" + suit + "]");
+}
+
+removeMinorCardHTML = function (card) {
+    var $child = getMinorCardHTML(card.number, card.suit);
+
+    card.zone = DECK;
+    card.selected = false;
+    $child.remove();
+    $child.hide();
+    $child.removeClass("selected");
+    $("body").append($child);
 }
 
 setContext = function setContext (card, deck) {
@@ -66,7 +77,8 @@ showDraw = function showDraw (draw) {
 
 // removes children from the draw annex, and puts them in the deck
 clearDraw = function clearDraw (deck) {
-    var $children = $draw.children();
+    var $children = $draw.children(),
+        $body = $("body");
 
     _.each($children, function (child) {
         var $child = $(child),
@@ -74,14 +86,37 @@ clearDraw = function clearDraw (deck) {
             suit = $child.data("minor-suit"),
             card = deck.getMinor(number, suit);
 
-        card.zone = DECK;
-        $child.remove();
-        $("body").append($child);
+        removeMinorCardHTML(card);
     });
 }
 
+
+selectMajorArcana = function (card, deck) {
+    var draw;
+
+    // the clicked arcana becomes the context, then we draw cards
+    setContext(card, deck);
+
+    // put the previous draw back in the deck if it is still up
+    clearDraw(deck);
+    draw = deck.drawCards(card);
+
+    console.log(_.pluck(draw, "order"));
+    console.log(deck.countMinor());
+
+    showDraw(draw);
+
+    // if only one major arcana is showing (the context) we must reveal the nameless arcana
+    // TODO -- right now when we have chosen the nameless_arcana, it ends up being face up in the
+    // context spot. Whatever we do, I'd like this game state to be identical to the initial
+    // gamestate. Discuss having a mysterious face down arcana in the context at the beginning
+    if ($(".card.face-up[data-major-number]").length === 1) {
+        flipMajorCard(deck.getMajor(NAMELESS_ARCANA));
+    }
+};
+
 $(function () {
-    var deck = new Deck(), draw, selectMajorArcana;
+    var deck = new Deck(), draw;
 
     $spread = $("[role=spread]");
     $context = $("[role=context]");
@@ -92,7 +127,8 @@ $(function () {
     buildSpread(deck);
     buildMinorArcana(deck);
 
-    flipMajorCard(deck.getMajor(THE_WHEEL));
+    // to begin with, death is selected
+    selectMajorArcana(deck.getMajor(NAMELESS_ARCANA), deck);
 
     $spread.on("click", ".card", function () {
         if (this.className === "card face-down") return false;
@@ -100,25 +136,7 @@ $(function () {
         var number = $(this).data("major-number"),
             card = deck.getMajor(number), draw;
 
-        // the clicked arcana becomes the context, then we draw cards
-        setContext(card, deck);
-
-        // put the previous draw back in the deck if it is still up
-        clearDraw(deck);
-        draw = deck.drawCards(card);
-
-        console.log(_.pluck(draw, "order"));
-        console.log(deck.countMinor());
-
-        showDraw(draw);
-
-        // if only one major arcana is showing (the context) we must reveal the nameless arcana
-        // TODO -- right now when we have chosen the nameless_arcana, it ends up being face up in the
-        // context spot. Whatever we do, I'd like this game state to be identical to the initial
-        // gamestate. Discuss having a mysterious face down arcana in the context at the beginning
-        if ($(".card.face-up[data-major-number]").length === 1) {
-            flipMajorCard(deck.getMajor(NAMELESS_ARCANA));
-        }
+        selectMajorArcana(card, deck);
     });
 
     $draw.on("click", ".card", function () {
@@ -139,6 +157,9 @@ $(function () {
             card = deck.getMinor(number, suit);
 
         // select the card
+        $this.toggleClass("selected");
+        card.selected = true;
+
         // TODO all "removing" of cards should go through a method
         // so that the select effect can be removed
     });
