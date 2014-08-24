@@ -1,6 +1,6 @@
 // globals for elements in the layout
-var $spread, $context, $draw, $collection,
-    setContext, drawCards, getElementByCardNumber, selectMajorArcana,
+var $spread, $context, $draw, $collection, $submit,
+    setContext, drawCards, getElementByCardNumber, selectMajorArcana, submitHandler,
     DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
     THE_WHEEL = 10, NAMELESS_ARCANA = 13;
@@ -45,6 +45,13 @@ setContext = function setContext (card, deck) {
     card.zone = CONTEXT;
 
     // TODO update the submit callback
+    if (card.submitHandler === undefined) {
+        $submit.hide();
+
+    } else {
+        $submit.show();
+        submitHandler = card.submitHandler;
+    }
 
     if (card.init != null) {
         card.init(deck);
@@ -122,6 +129,7 @@ $(function () {
     $context = $("[role=context]");
     $draw = $("[role=draw]");
     $collection = $("[role=collection]");
+    $submit = $("[role=submit]");
 
     // to start the game, we build the spread and then select the wheel
     buildSpread(deck);
@@ -163,4 +171,6 @@ $(function () {
         // TODO all "removing" of cards should go through a method
         // so that the select effect can be removed
     });
+
+    $submit.on("click", submitHandler);
 })

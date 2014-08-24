@@ -14,7 +14,8 @@ var Card = (function () {
             order: "major",
             draw_size: options.draw_size,
             filter: options.filter,
-            init: options.init
+            init: options.init,
+            submitHandler: options.submitHandler
         };
     };
 }());
