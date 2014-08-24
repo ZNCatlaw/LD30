@@ -1,6 +1,6 @@
 // globals for elements in the layout
 var $spread, $context, $draw, $collection, $submit,
-    setContext, drawCards, getElementByCardNumber, selectMajorArcana, submitHandler,
+    setContext, drawCards, getElementByCardNumber, selectMajorArcana,
     DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
     THE_WHEEL = 10, NAMELESS_ARCANA = 13;
@@ -47,15 +47,15 @@ setContext = function setContext (card, deck) {
     // TODO update the submit callback
     if (card.submitHandler === undefined) {
         $submit.hide();
-
     } else {
         $submit.show();
-        submitHandler = card.submitHandler;
     }
 
     if (card.init != null) {
         card.init(deck);
     }
+
+    // if this is a hub world, hide the $draw and build the $hand
 }
 
 // Assumption: we NEVER need to flip minor arcana. They are either in the
@@ -139,7 +139,7 @@ $(function () {
     selectMajorArcana(deck.getMajor(NAMELESS_ARCANA), deck);
 
     $spread.on("click", ".card", function () {
-        if (this.className === "card face-down") return false;
+        //if (this.className === "card face-down") return false;
 
         var number = $(this).data("major-number"),
             card = deck.getMajor(number), draw;
@@ -166,11 +166,17 @@ $(function () {
 
         // select the card
         $this.toggleClass("selected");
-        card.selected = true;
+        card.selected = (card.selected === true)? false : true;
 
         // TODO all "removing" of cards should go through a method
         // so that the select effect can be removed
     });
 
-    $submit.on("click", submitHandler);
+    $submit.on("click", function () {
+        var $card = $context.children(),
+            number = $card.data("major-number"),
+            card = deck.getMajor(number);
+
+        card.submitHandler(deck);
+    });
 })
