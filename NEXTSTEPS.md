@@ -13,13 +13,13 @@ NEXTSTEPS
 
 [ ] basic flow
   [x] clicking an arcana changes the context
-    [ ] changing the context changes the submit callback
+    [x] changing the context changes the submit callback
     [x] changing the context may run some code (eg, death puts all major arcana back in the deck)
     [x] changing the context adds a callback to the draw verb
     [x] changing the context draws a number of cards
     [x] clears the draw (puts it back in the deck)
   [x] clicking cards in the draw collects them
-  [ ] clicking cards in hand selects them
+  [x] clicking cards in hand selects them
   [ ] Hub worlds present the hand slots
     [ ] clicking submit moves them to the slots
   [x] when there are no arcana revealed, death is revealed
@@ -30,12 +30,13 @@ NEXTSTEPS
 [ ] rather than keeping all the hidden minor cards on the body,
     we should just keep them in an array indexed by number/suit
 
-[ ] initially restrict the deck:
-  [ ] hub worlds
+[x] initially restrict the deck:
+  [x] hub worlds
   [x] the wheel
-  [ ] the world
+  [x] the world
   [x] death
-  [ ] l'etoile draw three minor arcana
+  [x] l'etoile draw three minor arcana
+[x] Full fucking deck bitches
 
 #### DECK ####
 

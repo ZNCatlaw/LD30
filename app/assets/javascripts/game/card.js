@@ -51,7 +51,7 @@ defaultSubmitHandler = function (deck) {
 
         this.hands.push(hand);
     } else {
-        console.log("NO");
+        console.log("NOT VALID");
     }
 };
 
@@ -148,7 +148,6 @@ var CARDS = [
             var finished_hands = _.inject(deck.major, function (count, index) {
                 card = deck.cards[index];
                 if (card.hub === true) {
-                debugger
                     // count the number of hands
                     count += card.hands.length
                 }

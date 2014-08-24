@@ -95,8 +95,16 @@ clearDraw = function clearDraw (deck) {
 
         removeMinorCardHTML(card);
     });
-}
+};
 
+clearSelect = function clearSelect (deck) {
+    _.each(deck.minor, function (number) {
+        var card = deck.cards[number];
+
+        card.selected = false;
+        getMinorCardHTML(card.number, card.suit).removeClass("selected");
+    });
+};
 
 selectMajorArcana = function (card, deck) {
     var draw;
@@ -106,10 +114,11 @@ selectMajorArcana = function (card, deck) {
 
     // put the previous draw back in the deck if it is still up
     clearDraw(deck);
+    clearSelect(deck);
     draw = deck.drawCards(card);
 
-    console.log(_.pluck(draw, "order"));
-    console.log(deck.countMinor());
+    console.log("draw:", _.pluck(draw, "order"));
+    console.log("remaining:", deck.countMinor());
 
     showDraw(draw);
 
