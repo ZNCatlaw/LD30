@@ -98,7 +98,39 @@ var CARDS = [
             return card.order === "minor";
         }
     }),
-    new Card({ name: "L'Impératrice", number: 3}),
+    new Card({
+        name: "L'Impératrice",
+        number: 3,
+        draw_size: function () { return 0; },
+        submitHandler: function (deck) {
+            // get all the selected cards
+            var submitted = false,
+                selection = _.filter(deck.cards, function (card) {
+                    return card.selected === true;
+                });
+
+            if (selection.length > 0) {
+                // remove and deselect these cards
+                _.each(selection, function (card) {
+                    removeMinorCardHTML(card);
+                    card.zone = DECK;
+                });
+
+                deck.drawCards({
+                    filter: function (card) {
+                        return card.order === "minor";
+                    },
+                    draw_size: function () {
+                        return selection.length;
+                    }
+                });
+
+                submitted = true;
+            }
+
+            return submitted;
+        }
+    }),
     new Card({
         name: "L'Empereur",
         number: 4,
@@ -332,7 +364,6 @@ var CARDS = [
             if (finished_hands >= 4) {
                 window.location = "http://parkhowell.com/wp-content/uploads/2011/02/Victory-Baby.jpg";
             }
-
         }
     })
 ];
