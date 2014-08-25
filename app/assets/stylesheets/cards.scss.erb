@@ -15,13 +15,13 @@ div.cardbox {
   margin: 3px;
   z-index: 5;
 
-  @media (min-width: 1200px){
+  @include mediaquery('medium') {
     width: 88px; //88.2
     height: 170px; //170.1
     margin: 4px;
   }
 
-  @media (min-width: 1600px){
+  @include mediaquery('large') {
     width: 118px; //117.6
     height: 227px; //226.8
     margin: 5px;
@@ -37,13 +37,13 @@ div.handbox {
   z-index: 10;
   white-space: nowrap;
 
-  @media (min-width: 1200px){
+  @include mediaquery('medium')  {
     min-width: 178px;
     height: 170px; //170.1
     margin: 4px;
   }
 
-  @media (min-width: 1600px){
+  @include mediaquery('large') {
     min-width: 238px;
     height: 227px; //226.8
     margin: 5px;
@@ -58,10 +58,10 @@ div.handbox {
 
     margin-left: -37px;
 
-    @media (min-width: 1200px){
+    @include mediaquery('medium') {
       margin-left: -44px;
     }
-    @media (min-width: 1600px){
+    @include mediaquery('large') {
       margin-left: -59px;
     }
 
@@ -86,34 +86,30 @@ div.card {
   }
 
   &.null {
-    background-image: url('tarot/null.png');
+    background-image: url(<%= asset_path('tarot/null.png') %>);
   }
 
   &.cover {
-    background-image: url('tarot/cover.png');
+    background-image: url(<%= asset_path('tarot/cover.png') %>);
   }
 
-  @for $num from 0 through 21 {
-    $padded: $num;
-    @if($padded < 10) {
-      $padded: '0' + '#{$padded}';
-    }
+  <% 22.times do |num| %>
 
-    &#major-#{$num} {
-      background-image: url('tarot/major-#{$padded}.png');
-    }
+  &#major-<%= num %> {
+    background-image: url(<%= asset_path("tarot/major-#{num.to_s.rjust(2,'0')}.png") %>);
   }
 
-  @for $suit from 0 through 3 {
-    @for $num from 0 through 13 {
-      $padded: $num + 1;
-      @if($padded < 10) {
-        $padded: '0' + '#{$padded}';
-      }
+  <% end
 
-      &#minor-#{$suit}-#{$num} {
-        background-image: url('tarot/minor-#{$suit}-#{$padded}.png');
-      }
-    }
+    4.times do |suit|
+      14.times do |num|
+      num = num + 1
+  %>
+
+  &#minor-<%="#{suit}-#{num}" %> {
+    background-image: url(<%= asset_path("tarot/minor-#{suit}-#{num.to_s.rjust(2, '0')}.png") %>);
   }
+
+  <%  end
+    end %>
 }

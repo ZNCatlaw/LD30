@@ -1,5 +1,14 @@
 @import url(http://fonts.googleapis.com/css?family=Goudy+Bookletter+1911);
 
+@mixin mediaquery($point) {
+  @if $point == medium {
+    @media (min-width: 1200px) and (min-height: 780px) { @content; }
+  }
+  @else if $point == large {
+    @media (min-width: 1600px) and (min-height: 975px) { @content; }
+  }
+}
+
 .clear {
   clear: both;
 }

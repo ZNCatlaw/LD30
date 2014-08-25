@@ -21,14 +21,14 @@ body {
   width: 1000px;
   height: 650px;
 
-  @media (min-width: 1200px){
+  @include mediaquery(medium) {
     width: 1200px;
     height: 780px;
   }
 
-  @media (min-width: 1600px){
+  @include mediaquery(large) {
     width: 1600px;
-    height: 1040px;
+    height: 975px;
   }
 }
 
