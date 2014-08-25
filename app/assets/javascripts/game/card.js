@@ -194,15 +194,17 @@ var CARDS = [
         number: 12,
         draw_size: function (deck) {
             var spread = _.where(deck.cards, { zone: SPREAD }),
-                size = (MAJOR - spread.length - 1); // -1 because the pendu cannot be drawn
-            console.log("spread", spread.length);
-            console.log("size", size);
+                deck = _.where(deck.cards, { zone: DECK, order: "major" });
 
             _.each(spread, function (card) {
                 coverMajorCard(card);
             });
 
-            return size;
+            _.each(deck, function (card) {
+                flipMajorCard(card);
+            });
+
+            return 0;
         },
         filter: function (card) {
             return card.order === "major";
