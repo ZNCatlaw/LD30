@@ -194,10 +194,12 @@ var CARDS = [
         number: 12,
         draw_size: function (deck) {
             var spread = _.where(deck.cards, { zone: SPREAD }),
-                size = (MAJOR - spread.length);
+                size = (MAJOR - spread.length - 1); // -1 because the pendu cannot be drawn
+            console.log("spread", spread.length);
+            console.log("size", size);
 
             _.each(spread, function (card) {
-                flipMajorCard(card);
+                coverMajorCard(card);
             });
 
             return size;
@@ -241,7 +243,7 @@ var CARDS = [
                 size = Math.max(spread.length + collection.length - 1, 0);
 
             _.each(spread, function (card) {
-                flipMajorCard(card);
+                coverMajorCard(card);
             });
 
             _.each(collection, function (card) {
@@ -251,7 +253,23 @@ var CARDS = [
             return size;
         }
     }),
-    new Card({ name: "La Maison Dieu", number: 16 }),
+    new Card({
+        name: "La Maison Dieu",
+        number: 16,
+        draw_size: function (deck) {
+            var spread = _.where(deck.cards, { zone: SPREAD }),
+                size = spread.length;
+
+            _.each(spread, function (card) {
+                coverMajorCard(card);
+            });
+
+            return size;
+        },
+        filter: function (card) {
+            return card.order === "major";
+        }
+    }),
     new Card({
         name: "L'Étoile",
         number: 17,
@@ -260,8 +278,24 @@ var CARDS = [
             return card.order === "minor";
         }
     }),
-    new Card({ name: "La Lune", number: 18 }),
-    new Card({ name: "Le Soleil", number: 19 }),
+    new Card({
+        name: "La Lune",
+        number: 18,
+        draw_size: function () { return 3; },
+        filter: function (card) {
+            // cups and coins
+            return card.suit === CUPS || card.suit === COINS;
+        }
+    }),
+    new Card({
+        name: "Le Soleil",
+        number: 19,
+        draw_size: function () { return 3; },
+        filter: function (card) {
+            // swords and batons
+            return card.suit === SWORDS || card.suit === BATONS;
+        }
+    }),
     new Card({
         name: "Le Jugement",
         number: 20,

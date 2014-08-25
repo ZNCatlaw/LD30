@@ -76,6 +76,13 @@ flipMajorCard = function (card) {
     card.zone = SPREAD;
 }
 
+coverMajorCard = function (card) {
+    var $card = getMajorCardHTML(card.number);
+    $card.toggleClass("face-up face-down");
+
+    card.zone = DECK;
+}
+
 // flips major arcana and adds minor to the draw annex
 showDraw = function showDraw (draw) {
     _.each(draw, function (card) {
