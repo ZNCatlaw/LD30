@@ -29,7 +29,7 @@ var Card = (function () {
             hands: []
         };
     };
-}());
+}()), defaultSubmitHandler, defaultSubmitPredicate, swapSelectedForOrder, CARDS;
 
 defaultSubmitHandler = function (deck) {
     // get all the selected cards
@@ -95,7 +95,7 @@ swapSelectedForOrder = function (order) {
     }
 }
 
-var CARDS = [
+CARDS = [
     new Card({
         name: "Le Mat",
         number: 0,
@@ -277,7 +277,40 @@ var CARDS = [
             });
         }
     }),
-    new Card({ name: "Tempérance", number: 14 }),
+    new Card({
+        name: "Tempérance",
+        number: 14 ,
+        draw_size: function () { return 0; },
+        submitHandler: function (deck) {
+            // get all the selected cards
+            var submitted = false, draw = [],
+                selection = _.filter(deck.cards, function (card) {
+                    return card.selected === true;
+                });
+
+            if (selection.length > 0) {
+                // remove and deselect these cards
+                _.each(selection, function (card) {
+                    var suit = swapping_table[card.suit], replacement;
+
+                    replacement = _.findWhere(deck.cards, { zone: DECK, number: card.number, suit: suit });
+
+                    if (replacement != undefined) {
+                        draw.push(replacement);
+                    }
+
+                    removeMinorCardHTML(card);
+                    card.zone = DECK;
+                });
+
+                console.log(draw);
+                showDraw(draw);
+                submitted = true;
+            }
+
+            return submitted;
+        }
+    }),
     new Card({
         name: "Le Diable",
         number: 15,
