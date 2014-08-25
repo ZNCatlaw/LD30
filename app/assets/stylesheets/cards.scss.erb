@@ -28,6 +28,8 @@ div.cardbox {
   }
 
   @include transform( translate3d(0, 0, 0) );
+
+  perspective: 800px;
 }
 
 div.handbox {
@@ -75,14 +77,30 @@ div.card {
   position: absolute;
   top: 0; bottom: 0; right: 0; left: 0; // fill parent
 
-  background-size: cover;
-  background-position: top left;
-  background-repeat: no-repeat;
+  transform-style: preserve-3d;
+  transition: transform 1s;
 
-  &.face-down {
+  .back, .front {
+      position: absolute;
+      top: 0; bottom: 0; right: 0; left: 0; // fill parent
+      backface-visibility: hidden;
+  }
+
+  .front {
+      background-size: cover;
+      background-position: top left;
+      background-repeat: no-repeat;
+  }
+
+  .back {
     background-image: url(<%= asset_path('tarot/back.png') %>) !important;
     background-position: center center;
     background-size: 225%;
+    transform: rotateY( 180deg );
+  }
+
+  &.face-down {
+    transform: rotateY( 180deg );
   }
 
   &.null {
@@ -96,7 +114,9 @@ div.card {
   <% 22.times do |num| %>
 
   &#major-<%= num %> {
-    background-image: url(<%= asset_path("tarot/major-#{num.to_s.rjust(2,'0')}.png") %>);
+    .front {
+        background-image: url(<%= asset_path("tarot/major-#{num.to_s.rjust(2,'0')}.png") %>);
+    }
   }
 
   <% end
@@ -107,7 +127,9 @@ div.card {
   %>
 
   &#minor-<%="#{suit}-#{num}" %> {
-    background-image: url(<%= asset_path("tarot/minor-#{suit}-#{num.to_s.rjust(2, '0')}.png") %>);
+    .front {
+        background-image: url(<%= asset_path("tarot/minor-#{suit}-#{num.to_s.rjust(2, '0')}.png") %>);
+    }
   }
 
   <%  end
