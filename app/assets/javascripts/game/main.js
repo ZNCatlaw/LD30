@@ -221,6 +221,7 @@ $(function () {
 
                 $card.remove();
                 $card.show();
+                card.zone = HAND;
 
                 $container.append($card);
 

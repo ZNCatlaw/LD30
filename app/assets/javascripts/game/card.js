@@ -70,22 +70,101 @@ var CARDS = [
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: defaultSubmitHandler,
-        submitPredicate: defaultSubmitPredicate
+        // all royal or all number
+        submitPredicate: function (selection) {
+            var unique_numbers = _.uniq(_.pluck(selection, "number")).length === 3,
+                unique_suits = _.uniq(_.pluck(selection, "suit")).length === 3;
+
+            return selection.length === 3 && (unique_numbers && unique_suits);
+        }
     }),
-    new Card({ name: "Le Bateleur", number: 1}),
-    new Card({ name: "La Papesse", number: 2}),
+    new Card({
+        name: "Le Bateleur",
+        number: 1,
+        draw_size: function () {
+            return $spread.find(".card.face-up").length;
+        },
+        filter: function (card) {
+            return card.order === "major";
+        }
+    }),
+    new Card({
+        name: "La Papesse",
+        number: 2,
+        draw_size: function () {
+            return $spread.find(".card.face-up").length + $collection.find(".card.face-up").length;
+        },
+        filter: function (card) {
+            return card.order === "minor";
+        }
+    }),
     new Card({ name: "L'Impératrice", number: 3}),
-    new Card({ name: "L'Empereur", number: 4}),
-    new Card({ name: "Le Pape", number: 5}),
-    new Card({ name: "L'Amoureux", number: 6}),
+    new Card({
+        name: "L'Empereur",
+        number: 4,
+        draw_size: function () {
+            return (5 - $collection.find(".card.face-up").length);
+        },
+        filter: function (card) {
+            return card.order === "minor";
+        }
+    }),
+    new Card({
+        name: "Le Pape",
+        number: 5,
+        draw_size: function (deck) {
+            var collection = _.where(deck.cards, { zone: COLLECTION }),
+                size = collection.length;
+
+            _.each(collection, function (card) {
+                removeMinorCardHTML(card);
+            });
+
+            return size;
+        },
+        filter: function (card) {
+            return card.order === "major";
+        }
+    }),
+    new Card({
+        name: "L'Amoureux",
+        number: 6,
+        draw_size: function () { return 5; }
+    }),
     new Card({ name: "Le Chariot", number: 7}),
-    new Card({ name: "La Justice", number: 8}),
+    new Card({
+        name: "La Justice",
+        number: 8,
+        draw_size: function (deck) {
+            var collection = _.where(deck.cards, { zone: COLLECTION }),
+                size = collection.length;
+
+            _.each(collection, function (card) {
+                removeMinorCardHTML(card);
+            });
+
+            return size;
+        }
+    }),
     new Card({
         name: "L'Hermite",
         number: 9,
         hub: true,
         draw_size: function () { return 0; },
-        submitHandler: defaultSubmitHandler,
+        submitHandler: function (deck) {
+            var submitted = defaultSubmitHandler.call(this, deck);
+
+            // once the hermit has been used, it becomes the null arcana
+            if (submitted === true) {
+                this.submitHandler = function () { return false; };
+                this.draw_size = function () { return 1; };
+                this.filter = function (card) {
+                    return card.order === "major";
+                };
+            }
+
+            return submitted;
+        },
         submitPredicate: function (selection) {
             // collection and selection must be ZEMPTY
 
@@ -110,7 +189,23 @@ var CARDS = [
             return selection.length === 3 && _.uniq(_.pluck(selection, "suit")).length === 1;
         }
     }),
-    new Card({ name: "Le Pendu", number: 12 }),
+    new Card({
+        name: "Le Pendu",
+        number: 12,
+        draw_size: function (deck) {
+            var spread = _.where(deck.cards, { zone: SPREAD }),
+                size = (MAJOR - spread.length);
+
+            _.each(spread, function (card) {
+                flipMajorCard(card);
+            });
+
+            return size;
+        },
+        filter: function (card) {
+            return card.order === "major";
+        }
+    }),
     new Card({
         name: "L'Arcane sans nom",
         number: 13,
@@ -137,9 +232,34 @@ var CARDS = [
         }
     }),
     new Card({ name: "Tempérance", number: 14 }),
-    new Card({ name: "Le Diable", number: 15 }),
+    new Card({
+        name: "Le Diable",
+        number: 15,
+        draw_size: function (deck) {
+            var spread = _.where(deck.cards, { zone: SPREAD }),
+                collection = _.where(deck.cards, { zone: COLLECTION }),
+                size = Math.max(spread.length + collection.length - 1, 0);
+
+            _.each(spread, function (card) {
+                flipMajorCard(card);
+            });
+
+            _.each(collection, function (card) {
+                removeMinorCardHTML(card);
+            });
+
+            return size;
+        }
+    }),
     new Card({ name: "La Maison Dieu", number: 16 }),
-    new Card({ name: "L'Étoile", number: 17 }),
+    new Card({
+        name: "L'Étoile",
+        number: 17,
+        draw_size: function () { return 3; },
+        filter: function (card) {
+            return card.order === "minor";
+        }
+    }),
     new Card({ name: "La Lune", number: 18 }),
     new Card({ name: "Le Soleil", number: 19 }),
     new Card({
@@ -148,7 +268,13 @@ var CARDS = [
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: defaultSubmitHandler,
-        submitPredicate: defaultSubmitPredicate
+        // all royal or all number
+        submitPredicate: function (selection) {
+            var all_royal = _.select(selection, function (card) { return card.number > 9; }).length === 3,
+                all_number = _.select(selection, function (card) { return card.number <= 9; }).length === 3;
+
+            return selection.length === 3 && (all_number || all_royal);
+        }
     }),
     new Card({
         name: "Le Monde",
