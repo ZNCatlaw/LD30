@@ -1,5 +1,5 @@
 // globals for elements in the layout
-var $spread, $context, $draw, $collection, $submit, $hands,
+var $spread, $context, $draw, $collection, $submit, $hands, $modal,
     setContext, drawCards, getElementByCardNumber, selectMajorArcana,
     DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
@@ -185,6 +185,8 @@ $(function () {
     $collection = $("#collection");
     $submit = $("#submit");
     $hands = $("#hands");
+    $overlay = $("#overlay");
+    $modal = $("#modal");
     $minor_store = $("#minor-store");
 
     // to start the game, we build the spread and then select the wheel
@@ -198,13 +200,38 @@ $(function () {
     $spread.on("click", ".card", function () {
         if (this.className === "card face-down") return false;
 
-        var number = $(this).data("major-number"),
+        var $card = $(this);
+
+        $modal.find(".cardbox").append($card);
+
+        $modal.show();
+        $overlay.show();
+    });
+
+    $overlay.on("click", function () {
+        var $card = $modal.find(".card"),
+            number = $card.data("major-number"),
+            card = deck.getMajor(number);
+
+        $slot = $("#spread-slot-" + number);
+        $card.remove();
+
+        $slot.append($card);
+
+        $modal.hide();
+        $overlay.hide();
+    });
+
+    $modal.on("click", function () {
+        var number = $(this).find(".card").data("major-number"),
             card = deck.getMajor(number), draw;
 
         // if the number is THE WORLD, then the context must be THE WHEEL
         // or we ignore the click
 
         selectMajorArcana(card, deck);
+        $modal.hide();
+        $overlay.hide();
     });
 
     $draw.on("click", ".card", function () {
