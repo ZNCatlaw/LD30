@@ -18,6 +18,8 @@ var Card = (function () {
         return {
             name: options.name,
             number: options.number,
+            brief: options.brief,
+            description: options.description,
             zone: DECK,
             order: "major",
             draw_size: options.draw_size,
@@ -99,6 +101,8 @@ CARDS = [
     new Card({
         name: "Le Mat",
         number: 0,
+        brief: "",
+        description: "",
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: defaultSubmitHandler,
@@ -113,6 +117,8 @@ CARDS = [
     new Card({
         name: "Le Bateleur",
         number: 1,
+        brief: "",
+        description: "",
         draw_size: function () {
             return $spread.find(".card.face-up").length;
         },
@@ -123,6 +129,8 @@ CARDS = [
     new Card({
         name: "La Papesse",
         number: 2,
+        brief: "",
+        description: "",
         draw_size: function () {
             return $spread.find(".card.face-up").length + $collection.find(".card.face-up").length;
         },
@@ -133,12 +141,16 @@ CARDS = [
     new Card({
         name: "L'Impératrice",
         number: 3,
+        brief: "",
+        description: "",
         draw_size: function () { return 0; },
         submitHandler: swapSelectedForOrder("minor")
     }),
     new Card({
         name: "L'Empereur",
         number: 4,
+        brief: "",
+        description: "",
         draw_size: function () {
             return (5 - $collection.find(".card.face-up").length);
         },
@@ -149,6 +161,8 @@ CARDS = [
     new Card({
         name: "Le Pape",
         number: 5,
+        brief: "",
+        description: "",
         draw_size: function (deck) {
             var collection = _.where(deck.cards, { zone: COLLECTION }),
                 size = collection.length;
@@ -166,17 +180,23 @@ CARDS = [
     new Card({
         name: "L'Amoureux",
         number: 6,
+        brief: "",
+        description: "",
         draw_size: function () { return 5; }
     }),
     new Card({
         name: "Le Chariot",
         number: 7,
+        brief: "",
+        description: "",
         draw_size: function () { return 0; },
         submitHandler: swapSelectedForOrder("major")
     }),
     new Card({
         name: "La Justice",
         number: 8,
+        brief: "",
+        description: "",
         draw_size: function (deck) {
             var collection = _.where(deck.cards, { zone: COLLECTION }),
                 size = collection.length;
@@ -191,6 +211,8 @@ CARDS = [
     new Card({
         name: "L'Hermite",
         number: 9,
+        brief: "",
+        description: "",
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: function (deck) {
@@ -216,6 +238,8 @@ CARDS = [
     new Card({
         name: "La Roue de Fortune",
         number: 10,
+        brief: "",
+        description: "",
         draw_size: function () { return 5; },
         filter: function (card) {
             return card.order === "major";
@@ -224,6 +248,8 @@ CARDS = [
     new Card({
         name: "La Force",
         number: 11,
+        brief: "",
+        description: "",
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: defaultSubmitHandler,
@@ -234,6 +260,8 @@ CARDS = [
     new Card({
         name: "Le Pendu",
         number: 12,
+        brief: "",
+        description: "",
         draw_size: function (deck) {
             var spread = _.where(deck.cards, { zone: SPREAD }),
                 deck = _.where(deck.cards, { zone: DECK, order: "major" });
@@ -255,6 +283,8 @@ CARDS = [
     new Card({
         name: "L'Arcane sans nom",
         number: 13,
+        brief: "",
+        description: "",
         // put all cards back in the deck
         // unless those cards are part of hands
         filter: function (card) {
@@ -280,6 +310,8 @@ CARDS = [
     new Card({
         name: "Tempérance",
         number: 14 ,
+        brief: "",
+        description: "",
         draw_size: function () { return 0; },
         submitHandler: function (deck) {
             // get all the selected cards
@@ -314,6 +346,8 @@ CARDS = [
     new Card({
         name: "Le Diable",
         number: 15,
+        brief: "",
+        description: "",
         draw_size: function (deck) {
             var spread = _.where(deck.cards, { zone: SPREAD }),
                 collection = _.where(deck.cards, { zone: COLLECTION }),
@@ -333,6 +367,8 @@ CARDS = [
     new Card({
         name: "La Maison Dieu",
         number: 16,
+        brief: "",
+        description: "",
         draw_size: function (deck) {
             var spread = _.where(deck.cards, { zone: SPREAD }),
                 size = spread.length;
@@ -350,6 +386,8 @@ CARDS = [
     new Card({
         name: "L'Étoile",
         number: 17,
+        brief: "",
+        description: "",
         draw_size: function () { return 3; },
         filter: function (card) {
             return card.order === "minor";
@@ -358,6 +396,8 @@ CARDS = [
     new Card({
         name: "La Lune",
         number: 18,
+        brief: "",
+        description: "",
         draw_size: function () { return 3; },
         filter: function (card) {
             // cups and coins
@@ -367,6 +407,8 @@ CARDS = [
     new Card({
         name: "Le Soleil",
         number: 19,
+        brief: "",
+        description: "",
         draw_size: function () { return 3; },
         filter: function (card) {
             // swords and batons
@@ -376,6 +418,8 @@ CARDS = [
     new Card({
         name: "Le Jugement",
         number: 20,
+        brief: "",
+        description: "",
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: defaultSubmitHandler,
@@ -390,6 +434,8 @@ CARDS = [
     new Card({
         name: "Le Monde",
         number: 21,
+        brief: "",
+        description: "",
         draw_size: function () { return 0; },
         init: function (deck) {
             // count the number of hands in all hubs
