@@ -6,6 +6,9 @@ div.cardbox {
   position: relative;
   margin: 3px;
 
+  border: 1px solid black;
+  border-radius: 6px;
+
   &:after {
     padding-top: 193.515358361774%; // 293x567 ratio
     display: block;
@@ -39,8 +42,8 @@ div.card {
   }
 
   @for $suit from 0 through 3 {
-    @for $num from 1 through 14 {
-      $padded: $num;
+    @for $num from 0 through 13 {
+      $padded: $num + 1;
       @if($padded < 10) {
         $padded: '0' + '#{$padded}';
       }

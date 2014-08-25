@@ -28,24 +28,20 @@ var buildMinorArcana = function buildMinorArcana (deck) {
     // create and hide the cards somewhere
     var cards          = deck.minor,
         card_data      = {},
-        rows           = 2,
-        cols           = Math.ceil(deck.major.length/rows),
         card_template  = $("script[role=card]").html(),
         $card_template = $(card_template),
-        $body          = $("body");
+        $minor_store   = $("#minor-store");
 
     _.forEach(cards, function (number, index) {
         var card = deck.cards[number],
-            $cardbox = $card_template.clone(),
-            $card = $cardbox.find(".card");
+            $card = $card_template.clone().find(".card");
 
         $card.addClass("face-up"); // minor arcana are always face-up
-        //$cardbox.hide(); // but sometimes invisible
         $card.attr("data-minor-number", card.number);
         $card.attr("data-minor-suit", card.suit);
         $card.attr("id", 'minor-' + card.suit + '-' + card.number);
 
-        $body.append($cardbox);
+        $minor_store.append($card);
     });
 }
 
