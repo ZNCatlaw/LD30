@@ -31,7 +31,7 @@ var Card = (function () {
             hands: []
         };
     };
-}()), defaultSubmitHandler, defaultSubmitPredicate, swapSelectedForOrder, CARDS;
+}()), defaultSubmitHandler, defaultSubmitPredicate, swapSelectedForOrder, shard_name, CARDS;
 
 defaultSubmitHandler = function (deck) {
     // get all the selected cards
@@ -97,12 +97,14 @@ swapSelectedForOrder = function (order) {
     }
 }
 
+shard_name = "A Shard World";
+
 CARDS = [
     new Card({
         name: "Le Mat",
         number: 0,
-        brief: "",
-        description: "",
+        brief: "A World of Potential",
+        description: "Combine three Minor Arcana into a Hand, as long as they have nothing in common. Through the power of Hands, you shall reunite the Worlds.",
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: defaultSubmitHandler,
@@ -115,10 +117,10 @@ CARDS = [
         }
     }),
     new Card({
-        name: "Le Bateleur",
+        name: "Le Bateleur ",
         number: 1,
-        brief: "",
-        description: "",
+        brief: shard_name + " and A Source Of Power",
+        description: "For every face up Major Arcana, a new Major Arcana is revealed.",
         draw_size: function () {
             return $spread.find(".card.face-up").length;
         },
@@ -129,8 +131,8 @@ CARDS = [
     new Card({
         name: "La Papesse",
         number: 2,
-        brief: "",
-        description: "",
+        brief: shard_name + " and A Source of Richness",
+        description: "For every face up card, draw a Minor Arcana.",
         draw_size: function () {
             return $spread.find(".card.face-up").length + $collection.find(".card.face-up").length;
         },
@@ -141,16 +143,16 @@ CARDS = [
     new Card({
         name: "L'Impératrice",
         number: 3,
-        brief: "",
-        description: "",
+        brief: shard_name + " and A Source of Possibility",
+        description: "Select any number of face up Minor Arcana to discard them and draw new Minor Arcana.",
         draw_size: function () { return 0; },
         submitHandler: swapSelectedForOrder("minor")
     }),
     new Card({
         name: "L'Empereur",
         number: 4,
-        brief: "",
-        description: "",
+        brief: shard_name + " and A Source of Nobility",
+        description: "Draw Minor Arcana until there are five Minor Arcana face up.",
         draw_size: function () {
             return (5 - $collection.find(".card.face-up").length);
         },
@@ -161,8 +163,8 @@ CARDS = [
     new Card({
         name: "Le Pape",
         number: 5,
-        brief: "",
-        description: "",
+        brief: shard_name + " and A Source of Sanctity",
+        description: "Discard all Minor Arcana, and draw a Minor Arcana for every face up Major Arcana.",
         draw_size: function (deck) {
             var collection = _.where(deck.cards, { zone: COLLECTION }),
                 size = collection.length;
@@ -180,23 +182,23 @@ CARDS = [
     new Card({
         name: "L'Amoureux",
         number: 6,
-        brief: "",
-        description: "",
+        brief: shard_name + " and A Source of Emotion",
+        description: "Reveal or draw five cards at random.",
         draw_size: function () { return 5; }
     }),
     new Card({
         name: "Le Chariot",
         number: 7,
-        brief: "",
-        description: "",
+        brief: shard_name + " and A Source of Achievement",
+        description: "Select any number of face up Minor Arcana to discard them and reveal the same number of Major Arcana.",
         draw_size: function () { return 0; },
         submitHandler: swapSelectedForOrder("major")
     }),
     new Card({
         name: "La Justice",
         number: 8,
-        brief: "",
-        description: "",
+        brief: shard_name + " and A Source of Justice",
+        description: "Discard all Minor Arcana, reveal or draw an equal number of cards at random.",
         draw_size: function (deck) {
             var collection = _.where(deck.cards, { zone: COLLECTION }),
                 size = collection.length;
@@ -211,8 +213,8 @@ CARDS = [
     new Card({
         name: "L'Hermite",
         number: 9,
-        brief: "",
-        description: "",
+        brief: "A World of Serenity",
+        description: "If you have no Minor Arcana, you may form a Hand, though you may only do this once.  Afterwards, l'Hermite will reveal a Major Arcana. Through the power of Hands, you shall reunite the Worlds.",
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: function (deck) {
@@ -238,8 +240,8 @@ CARDS = [
     new Card({
         name: "La Roue de Fortune",
         number: 10,
-        brief: "",
-        description: "",
+        brief: "A World of Chaos",
+        description: "Reveal five Major Arcana.",
         draw_size: function () { return 5; },
         filter: function (card) {
             return card.order === "major";
@@ -248,8 +250,8 @@ CARDS = [
     new Card({
         name: "La Force",
         number: 11,
-        brief: "",
-        description: "",
+        brief: "A World of Order",
+        description: "Combine three Minor Arcana into a Hand, as long as they share the same suit. Through the power of Hands, you shall reunite the Worlds.",
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: defaultSubmitHandler,
@@ -260,8 +262,8 @@ CARDS = [
     new Card({
         name: "Le Pendu",
         number: 12,
-        brief: "",
-        description: "",
+        brief: shard_name + " and a Source of Reversal",
+        description: "Hide all face up Major Arcana, and reveal all face down Major Arcana.",
         draw_size: function (deck) {
             var spread = _.where(deck.cards, { zone: SPREAD }),
                 deck = _.where(deck.cards, { zone: DECK, order: "major" });
@@ -283,8 +285,8 @@ CARDS = [
     new Card({
         name: "L'Arcane sans nom",
         number: 13,
-        brief: "",
-        description: "",
+        brief: shard_name + " and a Source of Ending",
+        description: "Hide all face up Major Arcana and discard all Minor Arcana.  Reveal La Roue de Fortune.",
         // put all cards back in the deck
         // unless those cards are part of hands
         filter: function (card) {
@@ -310,8 +312,8 @@ CARDS = [
     new Card({
         name: "Tempérance",
         number: 14 ,
-        brief: "",
-        description: "",
+        brief: shard_name + " and a Source of Transformation",
+        description: "Select any number of face up Minor Arcana to transform. Cups change to Swords, Batons change to coins, and vice versa.",
         draw_size: function () { return 0; },
         submitHandler: function (deck) {
             // get all the selected cards
@@ -346,8 +348,8 @@ CARDS = [
     new Card({
         name: "Le Diable",
         number: 15,
-        brief: "",
-        description: "",
+        brief: shard_name " and a Source of Bargain",
+        description: "Hide all face up Major Arcana and discard all Minor Arcana, reveal or draw one less cards at random.",
         draw_size: function (deck) {
             var spread = _.where(deck.cards, { zone: SPREAD }),
                 collection = _.where(deck.cards, { zone: COLLECTION }),
@@ -367,8 +369,8 @@ CARDS = [
     new Card({
         name: "La Maison Dieu",
         number: 16,
-        brief: "",
-        description: "",
+        brief: shard_name " and a Source of Change",
+        description: "Hide all face up Major Arcana, and then reveal an equal number of Major Arcana.",
         draw_size: function (deck) {
             var spread = _.where(deck.cards, { zone: SPREAD }),
                 size = spread.length;
@@ -386,8 +388,8 @@ CARDS = [
     new Card({
         name: "L'Étoile",
         number: 17,
-        brief: "",
-        description: "",
+        brief: shard_name + " and a Source of Balance",
+        description: "Draw three Minor Arcana.",
         draw_size: function () { return 3; },
         filter: function (card) {
             return card.order === "minor";
@@ -396,8 +398,8 @@ CARDS = [
     new Card({
         name: "La Lune",
         number: 18,
-        brief: "",
-        description: "",
+        brief: shard_name " and a Source of Reception",
+        description: "Draw three Minor Arcana, but only Cups and Coins.",
         draw_size: function () { return 3; },
         filter: function (card) {
             // cups and coins
@@ -407,8 +409,8 @@ CARDS = [
     new Card({
         name: "Le Soleil",
         number: 19,
-        brief: "",
-        description: "",
+        brief: shard_name " and a Source of Action",
+        description: "Draw three Minor Arcana, but only Batons and Swords.",
         draw_size: function () { return 3; },
         filter: function (card) {
             // swords and batons
@@ -418,8 +420,8 @@ CARDS = [
     new Card({
         name: "Le Jugement",
         number: 20,
-        brief: "",
-        description: "",
+        brief: "A World of Power",
+        description: "Combine three Minor Arcana into a Hand, as long as they are all royal, or all numbered. Through the power of Hands, you shall reunite the Worlds.",
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: defaultSubmitHandler,
@@ -434,8 +436,8 @@ CARDS = [
     new Card({
         name: "Le Monde",
         number: 21,
-        brief: "",
-        description: "",
+        brief: "A World of Worlds, Once Whole",
+        description: "This card may only be accessed from La Roue de Fortune. If you have formed four Hands, the Worlds shall be reunited.",
         draw_size: function () { return 0; },
         init: function (deck) {
             // count the number of hands in all hubs
