@@ -1,8 +1,8 @@
-var SUITS
+var SUITS, BATONS = 0, SWORDS = 1, CUPS = 2, COINS = 3;
 
 var Deck = (function () {
 
-    SUITS = ["Coins", "Cups", "Swords", "Batons"];
+    SUITS = ["Batons", "Swords", "Cups", "Coins"];
     NUMBERS = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Page", "Knight", "Queen", "King"]
 
     return function Deck () {
