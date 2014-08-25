@@ -33,9 +33,10 @@ var Card = (function () {
 
 defaultSubmitHandler = function (deck) {
     // get all the selected cards
-    var selection = _.filter(deck.cards, function (card) {
-        return card.selected === true;
-    });
+    var submitted = false,
+        selection = _.filter(deck.cards, function (card) {
+            return card.selected === true;
+        });
 
     // compare them to the requirements
     if (this.submitPredicate(selection) === true) {
@@ -50,9 +51,12 @@ defaultSubmitHandler = function (deck) {
         // append all cards in this hand to the $hand
 
         this.hands.push(hand);
+        submitted = true;
     } else {
         console.log("NOT VALID");
     }
+
+    return submitted;
 };
 
 defaultSubmitPredicate = function (selection) {
@@ -142,6 +146,7 @@ var CARDS = [
     new Card({
         name: "Le Monde",
         number: 21,
+        draw_size: function () { return 0; },
         init: function (deck) {
             // count the number of hands in all hubs
             // if that is FOUR then you win
@@ -155,9 +160,7 @@ var CARDS = [
                 return count;
             }, 0);
 
-            console.log("hands", finished_hands);
-
-            if (finished_hands > 4) {
+            if (finished_hands >= 4) {
                 window.location = "http://parkhowell.com/wp-content/uploads/2011/02/Victory-Baby.jpg";
             }
 

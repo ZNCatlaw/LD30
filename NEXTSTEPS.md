@@ -11,7 +11,7 @@ NEXTSTEPS
   [ ] Deck & Draw
   [ ] Hands
 
-[ ] basic flow
+[x] basic flow
   [x] clicking an arcana changes the context
     [x] changing the context changes the submit callback
     [x] changing the context may run some code (eg, death puts all major arcana back in the deck)
@@ -20,12 +20,12 @@ NEXTSTEPS
     [x] clears the draw (puts it back in the deck)
   [x] clicking cards in the draw collects them
   [x] clicking cards in hand selects them
-  [ ] Hub worlds present the hand slots
-    [ ] clicking submit moves them to the slots
+  [x] Hub worlds present the hand slots
+    [x] clicking submit moves them to the slots
   [x] when there are no arcana revealed, death is revealed
     [x] death covers all cards, and then reveals the wheel
 
-[ ] right now the game starts with the nameless arcana, but
+[x] right now the game starts with the nameless arcana, but
     we want it to start with the world alone on the board
 [ ] rather than keeping all the hidden minor cards on the body,
     we should just keep them in an array indexed by number/suit

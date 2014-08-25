@@ -1,9 +1,9 @@
 // globals for elements in the layout
-var $spread, $context, $draw, $collection, $submit,
+var $spread, $context, $draw, $collection, $submit, $hands,
     setContext, drawCards, getElementByCardNumber, selectMajorArcana,
     DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
-    THE_WHEEL = 10, NAMELESS_ARCANA = 13;
+    THE_WHEEL = 10, NAMELESS_ARCANA = 13, THE_WORLD = 21;
 
 getMajorCardHTML = function (number) {
     return $("[data-major-number=" + number + "]");
@@ -56,6 +56,14 @@ setContext = function setContext (card, deck) {
     }
 
     // if this is a hub world, hide the $draw and build the $hand
+    if (card.hub === true) {
+        $draw.hide();
+        $hands.show();
+
+    } else {
+        $hands.hide();
+        $draw.show();
+    }
 }
 
 // Assumption: we NEVER need to flip minor arcana. They are either in the
@@ -139,19 +147,24 @@ $(function () {
     $draw = $("[role=draw]");
     $collection = $("[role=collection]");
     $submit = $("[role=submit]");
+    $hands = $("[role=hands]");
 
     // to start the game, we build the spread and then select the wheel
     buildSpread(deck);
     buildMinorArcana(deck);
 
-    // to begin with, death is selected
-    selectMajorArcana(deck.getMajor(NAMELESS_ARCANA), deck);
+    // to begin with, the world is selected
+    flipMajorCard(deck.getMajor(THE_WORLD));
+    selectMajorArcana(deck.getMajor(THE_WORLD), deck);
 
     $spread.on("click", ".card", function () {
-        //if (this.className === "card face-down") return false;
+        if (this.className === "card face-down") return false;
 
         var number = $(this).data("major-number"),
             card = deck.getMajor(number), draw;
+
+        // if the number is THE WORLD, then the context must be THE WHEEL
+        // or we ignore the click
 
         selectMajorArcana(card, deck);
     });
@@ -186,6 +199,32 @@ $(function () {
             number = $card.data("major-number"),
             card = deck.getMajor(number);
 
-        card.submitHandler(deck);
+            if (card.hands.length < 4 && card.submitHandler(deck)) {
+                // add the most recent hand to the hands annex
+                // (which we assume is visible)
+                var $container = $("<div class='relative'>"), width, height,
+                    hand = _.last(card.hands);
+
+                $container.addClass("col-md-3 red-border full-height");
+                $hands.append($container);
+                width = $container.outerWidth();
+
+                _.each(hand, function (card, index) {
+                    var $card = getMinorCardHTML(card.number, card.suit),
+                        card_w = $card.width(),
+
+                        // each of the 4 containers contains n cards
+                        // so when we stack them we have to slide each one over
+                        offset_w = (width - card_w)/(hand.length - 1);
+
+                    $card.remove();
+                    $card.show();
+
+                    $container.append($card);
+
+                    $card.addClass("absolute");
+                    $card.css({ left: offset_w*index });
+                });
+            }
     });
 })

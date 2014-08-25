@@ -2,8 +2,8 @@ body {
   padding-top: 0;
 }
 
-div {
-  border: 2px solid lightblue;
+.red-border {
+  border: 1px solid red;
 }
 
 .height.two-thirds {
@@ -65,4 +65,12 @@ div {
 
 [role=submit] {
   background-color: red;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
 }
