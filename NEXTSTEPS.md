@@ -29,6 +29,7 @@ NEXTSTEPS
     we want it to start with the world alone on the board
 [ ] rather than keeping all the hidden minor cards on the body,
     we should just keep them in an array indexed by number/suit
+[ ] the hand size should be 5
 
 [x] initially restrict the deck:
   [x] hub worlds

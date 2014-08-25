@@ -7,7 +7,7 @@ music_sprites = {
 }
 
 music = new Howl({
-  src: ['assets/music.ogg', 'assets/music.mp3'],
+  src: ['<%= asset_path('music.ogg') %>', '<%= asset_path('music.mp3') %>'],
   sprite: music_sprites,
   volume: 0,
   onload: function() { nextMusicSegment(); }
