@@ -86,11 +86,16 @@ var CARDS = [
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: defaultSubmitHandler,
-        submitPredicate: defaultSubmitPredicate
+        submitPredicate: function (selection) {
+            // collection and selection must be ZEMPTY
+
+            return $collection.children().length === 0 && selection.length === 0;
+        }
     }),
     new Card({
         name: "La Roue de Fortune",
         number: 10,
+        draw_size: function () { return 5; },
         filter: function (card) {
             return card.order === "major";
         }
@@ -101,7 +106,9 @@ var CARDS = [
         hub: true,
         draw_size: function () { return 0; },
         submitHandler: defaultSubmitHandler,
-        submitPredicate: defaultSubmitPredicate
+        submitPredicate: function (selection) {
+            return selection.length === 3 && _.uniq(_.pluck(selection, "suit")).length === 1;
+        }
     }),
     new Card({ name: "Le Pendu", number: 12 }),
     new Card({

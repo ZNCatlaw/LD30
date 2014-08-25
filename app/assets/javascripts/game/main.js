@@ -199,32 +199,34 @@ $(function () {
             number = $card.data("major-number"),
             card = deck.getMajor(number);
 
-            if (card.hands.length < 4 && card.submitHandler(deck)) {
-                // add the most recent hand to the hands annex
-                // (which we assume is visible)
-                var $container = $("<div class='relative'>"), width, height,
-                    hand = _.last(card.hands);
+        if (card.hands.length < 4 && card.submitHandler(deck)) {
+            $submit.hide();
 
-                $container.addClass("col-md-3 red-border full-height");
-                $hands.append($container);
-                width = $container.outerWidth();
+            // add the most recent hand to the hands annex
+            // (which we assume is visible)
+            var $container = $("<div class='relative'>"), width, height,
+                hand = _.last(card.hands);
 
-                _.each(hand, function (card, index) {
-                    var $card = getMinorCardHTML(card.number, card.suit),
-                        card_w = $card.width(),
+            $container.addClass("col-md-3 red-border full-height");
+            $hands.append($container);
+            width = $container.outerWidth();
 
-                        // each of the 4 containers contains n cards
-                        // so when we stack them we have to slide each one over
-                        offset_w = (width - card_w)/(hand.length - 1);
+            _.each(hand, function (card, index) {
+                var $card = getMinorCardHTML(card.number, card.suit),
+                    card_w = $card.width(),
 
-                    $card.remove();
-                    $card.show();
+                    // each of the 4 containers contains n cards
+                    // so when we stack them we have to slide each one over
+                    offset_w = (width - card_w)/(hand.length - 1);
 
-                    $container.append($card);
+                $card.remove();
+                $card.show();
 
-                    $card.addClass("absolute");
-                    $card.css({ left: offset_w*index });
-                });
-            }
+                $container.append($card);
+
+                $card.addClass("absolute");
+                $card.css({ left: offset_w*index });
+            });
+        }
     });
 })

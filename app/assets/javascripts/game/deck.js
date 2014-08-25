@@ -10,10 +10,13 @@ var Deck = (function () {
             inDeck, nameFromIndex;
 
         _.times(MINOR, function buildMinor (index) {
+            var number = index % WEIGHTS,
+                suit = Math.floor(index / WEIGHTS);
+
             cards.push({
-                name: "minor" + index,
+                name: "" + number + " of " + SUITS[suit],
                 number: index % WEIGHTS,
-                suit: Math.floor(index / WEIGHTS),
+                suit: suit,
                 zone: DECK,
                 order: "minor",
                 selected: false
