@@ -14,13 +14,13 @@ getMinorCardHTML = function (number, suit) {
 }
 
 removeMinorCardHTML = function (card) {
-    var $child = getMinorCardHTML(card.number, card.suit);
+    var $card = getMinorCardHTML(card.number, card.suit);
 
     card.zone = DECK;
     card.selected = false;
-    $child.remove();
-    $child.removeClass("selected");
-    $minor_store.append($child);
+    $card.remove();
+    $card.parent().removeClass("selected");
+    $minor_store.append($card);
 }
 
 setContext = function setContext (card, deck) {
@@ -266,12 +266,8 @@ $(function () {
             suit = $this.data("minor-suit"),
             card = deck.getMinor(number, suit);
 
-        // select the card
-        $this.toggleClass("selected");
+        $this.parent().toggleClass("selected");
         card.selected = (card.selected === true)? false : true;
-
-        // TODO all "removing" of cards should go through a method
-        // so that the select effect can be removed
     });
 
     $submit.on("click", function () {
