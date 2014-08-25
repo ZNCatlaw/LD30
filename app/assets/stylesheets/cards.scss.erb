@@ -86,34 +86,30 @@ div.card {
   }
 
   &.null {
-    background-image: url('tarot/null.png');
+    background-image: url(<%= asset_path('tarot/null.png') %>);
   }
 
   &.cover {
-    background-image: url('tarot/cover.png');
+    background-image: url(<%= asset_path('tarot/cover.png') %>);
   }
 
-  @for $num from 0 through 21 {
-    $padded: $num;
-    @if($padded < 10) {
-      $padded: '0' + '#{$padded}';
-    }
+  <% 22.times do |num| %>
 
-    &#major-#{$num} {
-      background-image: url('tarot/major-#{$padded}.png');
-    }
+  &#major-<%= num %> {
+    background-image: url(<%= asset_path("tarot/major-#{num.to_s.rjust(2,'0')}.png") %>);
   }
 
-  @for $suit from 0 through 3 {
-    @for $num from 0 through 13 {
-      $padded: $num + 1;
-      @if($padded < 10) {
-        $padded: '0' + '#{$padded}';
-      }
+  <% end
 
-      &#minor-#{$suit}-#{$num} {
-        background-image: url('tarot/minor-#{$suit}-#{$padded}.png');
-      }
-    }
+    4.times do |suit|
+      14.times do |num|
+      num = num + 1
+  %>
+
+  &#minor-<%="#{suit}-#{num}" %> {
+    background-image: url(<%= asset_path("tarot/minor-#{suit}-#{num.to_s.rjust(2, '0')}.png") %>);
   }
+
+  <%  end
+    end %>
 }
