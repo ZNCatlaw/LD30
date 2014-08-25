@@ -2,24 +2,19 @@
 var buildSpread = function buildSpread (deck) {
     // place each card on the board
     var cards          = deck.major,
-        card_data      = {},
-        rows           = 2,
-        cols           = Math.ceil(cards.length/rows),
+        card_data      = {}
         card_template  = $("script[role=card]").html(),
         $card_template = $(card_template);
 
     _.forEach(cards, function (number, index) {
         var card = deck.cards[number],
-            $cardbox = $card_template.clone(),
-            $card = $cardbox.find(".card");
-
-        $cardbox.attr("id", 'spread-slot-' + card.number);
+            $card = $card_template.clone();
 
         $card.addClass("face-down");
         $card.attr("data-major-number", card.number);
         $card.attr("id", 'major-' + card.number);
 
-        $spread.append($cardbox);
+        $spread.find('#spread-slot-' + card.number).append($card);
     });
 
 }
@@ -45,3 +40,13 @@ var buildMinorArcana = function buildMinorArcana (deck) {
     });
 }
 
+var arrangeSpread = function arrangeSpread(){
+
+}
+
+var bernoulli = function bernoulli (t) {
+    var scale = 2 / (3 - Math.cos(2*t));
+    var x = scale * Math.cos(t);
+    var y = scale * Math.sin(2*t) / 2;
+    return [x, y];
+}

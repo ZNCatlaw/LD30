@@ -47,3 +47,6 @@ nextMusicSegment = function nextMusicSegment(current_sprite, fade_time) {
 
   music.play(current_sprite);
 };
+
+$(window).focus(function() { Howler.mute(false); });
+$(window).blur(function() { Howler.mute(true); });
