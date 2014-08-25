@@ -1,7 +1,19 @@
+div.cardbox, div.handbox {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+
+  background: rgba(0, 0, 0, 0.5);
+
+  border: 1px outset #444;
+  border-radius: 7px;
+}
+
 div.cardbox {
   width: 74px; //73.5
   height: 142px; //141.75
   margin: 3px;
+  z-index: 5;
 
   @media (min-width: 1200px){
     width: 88px; //88.2
@@ -15,31 +27,70 @@ div.cardbox {
     margin: 5px;
   }
 
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-
-  background: rgba(0, 0, 0, 0.5);
-
-  border: 1px outset #444;
-  border-radius: 7px;
-
   @include transform( translate3d(0, 0, 0) );
+}
 
-  > div.card {
-    position: absolute;
-    top: 0; bottom: 0; right: 0; left: 0; // fill parent
+div.handbox {
+  min-width: 152px;
+  height: 142px; //141.75
+  margin: 3px;
+  z-index: 10;
+  white-space: nowrap;
+
+  @media (min-width: 1200px){
+    min-width: 180px;
+    height: 170px; //170.1
+    margin: 4px;
+  }
+
+  @media (min-width: 1600px){
+    min-width: 240px;
+    height: 227px; //226.8
+    margin: 5px;
+  }
+
+  > div.cardbox {
+    display: inline-block;
+    margin: 0;
+    border: 0;
+    border-left: 1px outset #444;
+    border-radius: 7px 0 0 7px;
+
+    margin-left: -37px;
+
+    @media (min-width: 1200px){
+      margin-left: -44px;
+    }
+    @media (min-width: 1600px){
+      margin-left: -59px;
+    }
+
+    &:first-child{
+      margin-left: -1px;
+    }
   }
 }
 
 div.card {
-  background-size: 100%;
-  background-position: center;
+  position: absolute;
+  top: 0; bottom: 0; right: 0; left: 0; // fill parent
+
+  background-size: cover;
+  background-position: top left;
   background-repeat: no-repeat;
 
   &.face-down {
     background-image: url('tarot/back.png') !important;
-    background-size: 200%;
+    background-position: center center;
+    background-size: 225%;
+  }
+
+  &.null {
+    background-image: url('tarot/null.png');
+  }
+
+  &.cover {
+    background-image: url('tarot/cover.png');
   }
 
   @for $num from 0 through 21 {

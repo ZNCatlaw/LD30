@@ -186,6 +186,7 @@ $(function () {
     $submit = $("#submit");
     $hands = $("#hands");
     $minor_store = $("#minor-store");
+    $cardbox_template = $($("script[role=cardbox]").html());
 
     // to start the game, we build the spread and then select the wheel
     buildSpread(deck);
@@ -244,28 +245,18 @@ $(function () {
 
             // add the most recent hand to the hands annex
             // (which we assume is visible)
-            var $container = $("<div class='relative'>"), width, height,
+            var $container = $hands.find('.handbox:empty:first')
                 hand = _.last(card.hands);
 
-            $container.addClass("col-md-3 red-border full-height");
-            $hands.append($container);
-            width = $container.outerWidth();
-
             _.each(hand, function (card, index) {
-                var $card = getMinorCardHTML(card.number, card.suit),
-                    card_w = $card.width(),
-
-                    // each of the 4 containers contains n cards
-                    // so when we stack them we have to slide each one over
-                    offset_w = (width - card_w)/(hand.length - 1);
+                var $cardbox = $cardbox_template.clone(),
+                    $card = getMinorCardHTML(card.number, card.suit);
 
                 $card.remove();
                 card.zone = HAND;
 
-                $container.append($card);
-
-                $card.addClass("absolute");
-                $card.css({ left: offset_w*index });
+                $cardbox.append($card);
+                $container.append($cardbox);
             });
         }
     });
