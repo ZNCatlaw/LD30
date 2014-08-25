@@ -63,6 +63,38 @@ defaultSubmitPredicate = function (selection) {
     return selection.length === 3;
 };
 
+swapSelectedForOrder = function (order) {
+    return function submitHander (deck) {
+        // get all the selected cards
+        var submitted = false, draw,
+        selection = _.filter(deck.cards, function (card) {
+            return card.selected === true;
+        });
+
+        if (selection.length > 0) {
+            // remove and deselect these cards
+            _.each(selection, function (card) {
+                removeMinorCardHTML(card);
+                card.zone = DECK;
+            });
+
+            draw = deck.drawCards({
+                filter: function (card) {
+                    return card.order === order;
+                },
+                draw_size: function () {
+                    return selection.length;
+                }
+            });
+
+            showDraw(draw);
+            submitted = true;
+        }
+
+        return submitted;
+    }
+}
+
 var CARDS = [
     new Card({
         name: "Le Mat",
@@ -102,34 +134,7 @@ var CARDS = [
         name: "L'Impératrice",
         number: 3,
         draw_size: function () { return 0; },
-        submitHandler: function (deck) {
-            // get all the selected cards
-            var submitted = false,
-                selection = _.filter(deck.cards, function (card) {
-                    return card.selected === true;
-                });
-
-            if (selection.length > 0) {
-                // remove and deselect these cards
-                _.each(selection, function (card) {
-                    removeMinorCardHTML(card);
-                    card.zone = DECK;
-                });
-
-                deck.drawCards({
-                    filter: function (card) {
-                        return card.order === "minor";
-                    },
-                    draw_size: function () {
-                        return selection.length;
-                    }
-                });
-
-                submitted = true;
-            }
-
-            return submitted;
-        }
+        submitHandler: swapSelectedForOrder("minor")
     }),
     new Card({
         name: "L'Empereur",
@@ -163,7 +168,12 @@ var CARDS = [
         number: 6,
         draw_size: function () { return 5; }
     }),
-    new Card({ name: "Le Chariot", number: 7}),
+    new Card({
+        name: "Le Chariot",
+        number: 7,
+        draw_size: function () { return 0; },
+        submitHandler: swapSelectedForOrder("major")
+    }),
     new Card({
         name: "La Justice",
         number: 8,
