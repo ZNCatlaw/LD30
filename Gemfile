@@ -10,9 +10,9 @@ gem 'pg'
 
 gem 'turbolinks'
 gem 'simple_form', '~> 3.1.0.rc2'                      # Bootstrap 3 support
+gem 'slim-rails'
 
 group :development, :assets do
-  gem 'slim-rails'
   gem 'sass-rails'
   gem 'bootstrap-sass'
   gem 'jquery-rails'
