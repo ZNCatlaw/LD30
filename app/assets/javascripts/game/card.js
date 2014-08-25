@@ -348,7 +348,7 @@ CARDS = [
     new Card({
         name: "Le Diable",
         number: 15,
-        brief: shard_name " and a Source of Bargain",
+        brief: shard_name + " and a Source of Bargain",
         description: "Hide all face up Major Arcana and discard all Minor Arcana, reveal or draw one less cards at random.",
         draw_size: function (deck) {
             var spread = _.where(deck.cards, { zone: SPREAD }),
@@ -369,7 +369,7 @@ CARDS = [
     new Card({
         name: "La Maison Dieu",
         number: 16,
-        brief: shard_name " and a Source of Change",
+        brief: shard_name + " and a Source of Change",
         description: "Hide all face up Major Arcana, and then reveal an equal number of Major Arcana.",
         draw_size: function (deck) {
             var spread = _.where(deck.cards, { zone: SPREAD }),
@@ -398,7 +398,7 @@ CARDS = [
     new Card({
         name: "La Lune",
         number: 18,
-        brief: shard_name " and a Source of Reception",
+        brief: shard_name + " and a Source of Reception",
         description: "Draw three Minor Arcana, but only Cups and Coins.",
         draw_size: function () { return 3; },
         filter: function (card) {
@@ -409,7 +409,7 @@ CARDS = [
     new Card({
         name: "Le Soleil",
         number: 19,
-        brief: shard_name " and a Source of Action",
+        brief: shard_name + " and a Source of Action",
         description: "Draw three Minor Arcana, but only Batons and Swords.",
         draw_size: function () { return 3; },
         filter: function (card) {

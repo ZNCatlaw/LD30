@@ -28,7 +28,6 @@
   height: $overlay-height;
   padding: 5px;
 
-  color: white;
   background-color: rgba(0, 0, 0, .7);
   left: 50%;
   top: 5%;
@@ -41,5 +40,13 @@
     margin-left: $overlay-width/2 - $overlay-card-width/2;
     width: $overlay-card-width;
     height: $overlay-card-height;
+  }
+
+  .infobox {
+    color: white;
+
+    header {
+      text-align: center;
+    }
   }
 }
