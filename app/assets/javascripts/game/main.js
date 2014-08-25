@@ -19,7 +19,6 @@ removeMinorCardHTML = function (card) {
     card.zone = DECK;
     card.selected = false;
     $child.remove();
-    $child.hide();
     $child.removeClass("selected");
     $minor_store.append($child);
 }
@@ -46,9 +45,9 @@ setContext = function setContext (card, deck) {
 
     // TODO update the submit callback
     if (card.submitHandler === undefined) {
-        $submit.hide();
+        $submit.addClass('hidden')
     } else {
-        $submit.show();
+        $submit.removeClass('hidden')
     }
 
     if (card.init != null) {
@@ -64,6 +63,34 @@ setContext = function setContext (card, deck) {
         $hands.hide();
         $draw.show();
     }
+}
+
+setBackground = function setBackground(card){
+  var number = card.number,
+      $active = $bg.find('.active'),
+      $target;
+  if(number === 0){
+    $target = $bg.find('.bg-0');
+  }else if(number === 9){
+    $target = $bg.find('.bg-9');
+  }else if(number === 10){
+    $target = $bg.find('.bg-10');
+  }else if(number === 11){
+    $target = $bg.find('.bg-11');
+  }else if(number === 13){
+    $target = $bg.find('.bg-13');
+  }else if(number === 20){
+    $target = $bg.find('.bg-20');
+  }else if(number === 21){
+    $target = $bg.find('.bg-21');
+  }else{
+    $target = $bg.find('.bg');
+  }
+
+  if($active[0] !== $target[0]){
+    $active.removeClass('active').fadeOut(3000);
+    $target.hide().addClass('active').removeClass('hidden').fadeIn(1500);
+  }
 }
 
 // Assumption: we NEVER need to flip minor arcana. They are either in the
@@ -125,6 +152,7 @@ selectMajorArcana = function (card, deck) {
 
     // the clicked arcana becomes the context, then we draw cards
     setContext(card, deck);
+    setBackground(card); //potentially changes the page background
 
     // put the previous draw back in the deck if it is still up
     clearDraw(deck);
@@ -150,6 +178,7 @@ selectMajorArcana = function (card, deck) {
 $(function () {
     var deck = new Deck(), draw;
 
+    $bg = $("#background-images");
     $spread = $("#spread");
     $context = $("#context");
     $draw = $("#draw");
@@ -211,7 +240,7 @@ $(function () {
             console.log(card);
 
         if (card.hands.length < 4 && card.submitHandler(deck)) {
-            $submit.hide();
+            $submit.addClass('hidden');
 
             // add the most recent hand to the hands annex
             // (which we assume is visible)

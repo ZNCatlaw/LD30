@@ -14,7 +14,8 @@ gem 'slim-rails'
 
 group :development, :assets do
   gem 'sass-rails'
-  gem 'bootstrap-sass'
+  gem 'bourbon'
+  # gem 'bootstrap-sass'
   gem 'jquery-rails'
   gem 'underscore-rails'
   gem 'coffee-rails'
