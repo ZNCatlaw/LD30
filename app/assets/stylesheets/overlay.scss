@@ -16,7 +16,7 @@
   $card-height: 567px;
 
   $overlay-width: 6*$card-width/5;
-  $overlay-height: $card-height;
+  $overlay-height: 10*$card-height/9;
 
   $overlay-card-width: 4*$card-width/5;
   $overlay-card-height: 4*$card-height/5;
@@ -44,9 +44,15 @@
 
   .infobox {
     color: white;
+    padding: 5px;
 
     header {
       text-align: center;
+      font-family: 'Goudy Bookletter 1911', serif;
+
+      .title {
+        text-transform: uppercase;
+      }
     }
   }
 }

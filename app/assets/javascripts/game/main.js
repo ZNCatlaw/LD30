@@ -243,10 +243,14 @@ $(function () {
     });
 
     $draw.on("click", ".card", function () {
-        var $this = $(this),
-            number = $this.data("minor-number"),
-            suit = $this.data("minor-suit"),
-            card = deck.getMinor(number, suit);
+        var $this, number, suit, card;
+
+        if (_.where(deck.cards, { zone: COLLECTION }).length > 4) return false;
+
+        $this = $(this),
+        number = $this.data("minor-number"),
+        suit = $this.data("minor-suit"),
+        card = deck.getMinor(number, suit);
 
         card.zone = COLLECTION;
         $this.remove();

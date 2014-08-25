@@ -27,10 +27,10 @@ NEXTSTEPS
 
 [x] right now the game starts with the nameless arcana, but
     we want it to start with the world alone on the board
+[x] the collection size should be 5
+[x] Overlay for major arcana (click on to yes click off to no)
 [ ] rather than keeping all the hidden minor cards on the body,
     we should just keep them in an array indexed by number/suit
-[ ] the collection size should be 5
-[ ] Overlay for major arcana (click on to yes click off to no)
 
 [x] initially restrict the deck:
   [x] hub worlds
