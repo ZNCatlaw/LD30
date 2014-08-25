@@ -122,7 +122,7 @@ clearSelect = function clearSelect (deck) {
 };
 
 selectMajorArcana = function (card, deck) {
-    var draw;
+    var draw, spread;
 
     // the clicked arcana becomes the context, then we draw cards
     setContext(card, deck);
@@ -141,7 +141,9 @@ selectMajorArcana = function (card, deck) {
     // TODO -- right now when we have chosen the nameless_arcana, it ends up being face up in the
     // context spot. Whatever we do, I'd like this game state to be identical to the initial
     // gamestate. Discuss having a mysterious face down arcana in the context at the beginning
-    if ($(".card.face-up[data-major-number]").length === 1) {
+    spread = _.where(deck.cards, { order: "major", zone: SPREAD });
+
+    if (spread.length === 0 || (spread.length === 1 && spread[0].number === THE_WORLD)) {
         flipMajorCard(deck.getMajor(NAMELESS_ARCANA));
     }
 };

@@ -221,8 +221,8 @@ var CARDS = [
         init: function (deck) {
             var $body = $("body");
             _.each(deck.cards, function (card) {
-                // flip all face up arcana cards
-                if (card.zone === SPREAD || card.zone === CONTEXT) {
+                // flip all face up arcana cards in the spread
+                if (card.zone === SPREAD) {
                     var $card = getMajorCardHTML(card.number);
                     $card.removeClass("face-up");
                     $card.addClass("face-down");
