@@ -29,7 +29,7 @@ var buildMinorArcana = function buildMinorArcana (deck) {
 
     _.forEach(cards, function (number, index) {
         var card = deck.cards[number],
-            $card = $card_template.clone().find(".card");
+            $card = $card_template.clone();
 
         $card.addClass("face-up"); // minor arcana are always face-up
         $card.attr("data-minor-number", card.number);

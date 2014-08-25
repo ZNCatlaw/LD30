@@ -224,6 +224,7 @@ CARDS = [
             if (submitted === true) {
                 this.submitHandler = function () { return false; };
                 this.draw_size = function () { return 1; };
+                $hands.find('.handbox:empty:first').append($('#nullhand').children());
                 this.filter = function (card) {
                     return card.order === "major";
                 };
