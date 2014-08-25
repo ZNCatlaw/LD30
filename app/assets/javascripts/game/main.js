@@ -6,11 +6,11 @@ var $spread, $context, $draw, $collection, $submit, $hands,
     THE_WHEEL = 10, NAMELESS_ARCANA = 13, THE_WORLD = 21;
 
 getMajorCardHTML = function (number) {
-    return $("[data-major-number=" + number + "]");
+    return $("#major-" + number);
 }
 
 getMinorCardHTML = function (number, suit) {
-    return $("[data-minor-number=" + number + "][data-minor-suit=" + suit + "]");
+    return $("#minor-" + suit + "-" + number);
 }
 
 removeMinorCardHTML = function (card) {
@@ -21,18 +21,18 @@ removeMinorCardHTML = function (card) {
     $child.remove();
     $child.hide();
     $child.removeClass("selected");
-    $("body").append($child);
+    $minor_store.append($child);
 }
 
 setContext = function setContext (card, deck) {
     var $card = getMajorCardHTML(card.number), $slot,
-        $old = $context.children(), callbacks;
+        $old = $context.find('.card'), callbacks;
 
     if ($old.length > 0) {
         var number = $old.data("major-number"),
             old = deck.getMajor(number);
 
-        $slot = $("[data-slot-number=" + number + "]");
+        $slot = $("#spread-slot-" + number);
         $old.toggleClass("face-up face-down");
         $old.remove();
         old.zone = DECK;
@@ -41,7 +41,7 @@ setContext = function setContext (card, deck) {
     }
 
     $card.remove();
-    $context.append($card);
+    $context.find('.cardbox').append($card);
     card.zone = CONTEXT;
 
     // TODO update the submit callback
@@ -91,7 +91,7 @@ showDraw = function showDraw (draw) {
         } else {
             var $card = getMinorCardHTML(card.number, card.suit);
             $card.remove();
-            $draw.append($card);
+            $draw.find('.cardbox:empty:first').append($card);
             $card.show();
         }
     });
@@ -99,8 +99,7 @@ showDraw = function showDraw (draw) {
 
 // removes children from the draw annex, and puts them in the deck
 clearDraw = function clearDraw (deck) {
-    var $children = $draw.children(),
-        $body = $("body");
+    var $children = $draw.find('.cardbox:not(#deck)').children()
 
     _.each($children, function (child) {
         var $child = $(child),
@@ -151,12 +150,13 @@ selectMajorArcana = function (card, deck) {
 $(function () {
     var deck = new Deck(), draw;
 
-    $spread = $("[role=spread]");
-    $context = $("[role=context]");
-    $draw = $("[role=draw]");
-    $collection = $("[role=collection]");
-    $submit = $("[role=submit]");
-    $hands = $("[role=hands]");
+    $spread = $("#spread");
+    $context = $("#context");
+    $draw = $("#draw");
+    $collection = $("#collection");
+    $submit = $("#submit");
+    $hands = $("#hands");
+    $minor_store = $("#minor-store");
 
     // to start the game, we build the spread and then select the wheel
     buildSpread(deck);
@@ -186,7 +186,7 @@ $(function () {
 
         card.zone = COLLECTION;
         $this.remove();
-        $collection.append($this);
+        $collection.find('.cardbox:empty:first').append($this);
     });
 
     $collection.on("click", ".card", function () {
@@ -204,9 +204,11 @@ $(function () {
     });
 
     $submit.on("click", function () {
-        var $card = $context.children(),
+        var $card = $context.find('.card'),
             number = $card.data("major-number"),
             card = deck.getMajor(number);
+
+            console.log(card);
 
         if (card.hands.length < 4 && card.submitHandler(deck)) {
             $submit.hide();
@@ -229,7 +231,6 @@ $(function () {
                     offset_w = (width - card_w)/(hand.length - 1);
 
                 $card.remove();
-                $card.show();
                 card.zone = HAND;
 
                 $container.append($card);

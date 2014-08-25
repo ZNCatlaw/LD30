@@ -1,13 +1,31 @@
-
-.container-fluid.full-height
-  .row.height.one-fourth
-    .col-md-3.full-height role="context"
-    .col-md-8.full-height
-      .full-height role="draw"
-      .row.full-height role="hands"
-  .row.height.one-half
-    .col-md-12.full-height role="spread"
-  .row.height.one-fourth
-    .col-md-11.full-height role="collection"
-    .col-md-1.full-height role="submit"
+.container-fluid
+  .row
+    .col-md-12
+      span#context
+        .cardbox
+      .cardbox.invisible
+      span#draw
+        .cardbox
+        .cardbox
+        .cardbox
+        .cardbox
+        .cardbox
+        #deck.cardbox
+          .card.face-down
+      span#hands
+  .clearfix
+  .row
+    #spread.col-md-12
+  .row
+    .col-md-12
+      span#collection
+        .cardbox
+        .cardbox
+        .cardbox
+        .cardbox
+        .cardbox
+      span
+        #submit.cardbox
+          .card
+#minor-store.hidden
 
