@@ -1,6 +1,6 @@
 // globals for elements in the layout
 var $spread, $context, $draw, $collection, $submit, $hands, $modal, $overlay, $infobox,
-    setContext, drawCards, getElementByCardNumber, selectMajorArcana,
+    setContext, drawCards, getElementByCardNumber, selectMajorArcana, dismissModal,
     DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
     THE_WHEEL = 10, NAMELESS_ARCANA = 13, THE_WORLD = 21;
@@ -216,7 +216,7 @@ $(function () {
         $overlay.show();
     });
 
-    $overlay.on("click", function () {
+    dismissModal = function () {
         var $card = $modal.find(".card"),
             number = $card.data("major-number"),
             card = deck.getMajor(number);
@@ -228,10 +228,13 @@ $(function () {
 
         $modal.hide();
         $overlay.hide();
-    });
+    };
 
-    $modal.on("click", function () {
-        var number = $(this).find(".card").data("major-number"),
+    $overlay.on("click", dismissModal);
+    $modal.on("click", dismissModal);
+
+    $modal.on("click", ".card", function () {
+        var number = $(this).data("major-number"),
             card = deck.getMajor(number), draw, context;
 
         // if the number is THE WORLD, then the context must be THE WHEEL
