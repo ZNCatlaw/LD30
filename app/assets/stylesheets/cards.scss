@@ -31,20 +31,20 @@ div.cardbox {
 }
 
 div.handbox {
-  min-width: 152px;
+  min-width: 150px;
   height: 142px; //141.75
   margin: 3px;
   z-index: 10;
   white-space: nowrap;
 
   @media (min-width: 1200px){
-    min-width: 180px;
+    min-width: 178px;
     height: 170px; //170.1
     margin: 4px;
   }
 
   @media (min-width: 1600px){
-    min-width: 240px;
+    min-width: 238px;
     height: 227px; //226.8
     margin: 5px;
   }
