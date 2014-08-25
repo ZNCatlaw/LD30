@@ -232,10 +232,13 @@ $(function () {
 
     $modal.on("click", function () {
         var number = $(this).find(".card").data("major-number"),
-            card = deck.getMajor(number), draw;
+            card = deck.getMajor(number), draw, context;
 
         // if the number is THE WORLD, then the context must be THE WHEEL
         // or we ignore the click
+        if (number === THE_WORLD && $context.find(".card").data("major-number") !== THE_WHEEL) {
+            return false;
+        }
 
         selectMajorArcana(card, deck);
         $modal.hide();

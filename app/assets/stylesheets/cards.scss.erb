@@ -80,7 +80,7 @@ div.card {
   transform-style: preserve-3d;
   transition: transform 1s;
 
-  .back, .front {
+  .back, .front, .cover, .null {
       position: absolute;
       top: 0; bottom: 0; right: 0; left: 0; // fill parent
       backface-visibility: hidden;
@@ -104,11 +104,14 @@ div.card {
   }
 
   &.null {
-    background-image: url(<%= asset_path('tarot/null.png') %>);
+      background-image: url(<%= asset_path('tarot/null.png') %>);
   }
 
   &.cover {
-    background-image: url(<%= asset_path('tarot/cover.png') %>);
+      background-image: url(<%= asset_path('tarot/cover.png') %>);
+      background-size: cover;
+      background-position: top left;
+      background-repeat: no-repeat;
   }
 
   <% 22.times do |num| %>
