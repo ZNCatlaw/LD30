@@ -1,5 +1,5 @@
 // globals for elements in the layout
-var $spread, $context, $draw, $collection, $submit, $hands, $modal,
+var $spread, $context, $draw, $collection, $submit, $hands, $modal, $overlay, $infobox,
     setContext, drawCards, getElementByCardNumber, selectMajorArcana,
     DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
@@ -187,6 +187,7 @@ $(function () {
     $hands = $("#hands");
     $overlay = $("#overlay");
     $modal = $("#modal");
+    $infobox = $modal.find(".infobox");
     $minor_store = $("#minor-store");
 
     // to start the game, we build the spread and then select the wheel
@@ -200,9 +201,15 @@ $(function () {
     $spread.on("click", ".card", function () {
         if (this.className === "card face-down") return false;
 
-        var $card = $(this);
+        var $card = $(this),
+            number = $card.data("major-number"),
+            card = deck.getMajor(number);
 
         $modal.find(".cardbox").append($card);
+
+        $infobox.find(".title").text(card.name);
+        $infobox.find(".subtitle").text(card.brief);
+        $infobox.find(".description").text(card.description);
 
         $modal.show();
         $overlay.show();
