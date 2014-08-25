@@ -15,6 +15,8 @@
 //= require underscore
 //= require turbolinks
 //= require bootstrap
+//= require howler.core
+//= require howler.effects
 //
 //= require game/main
 //= require_tree .
