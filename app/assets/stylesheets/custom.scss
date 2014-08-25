@@ -38,23 +38,6 @@ body {
   display: inline-block;
 }
 
-.card-container {
-  @extend .inline-block;
-  border: 1px solid grey;
-}
-
-.card {
-  border: none;
-}
-
-.card.face-up {
-  background-color: coral;
-}
-
-.card.face-down {
-  background-color: chocolate;
-}
-
 .hidden {
   visibility: hidden;
 }

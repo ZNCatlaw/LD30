@@ -1,0 +1,53 @@
+div.cardbox {
+  min-width: 96px;
+  max-width: 293px;
+  width: 8%; // whatever width you want
+  display: inline-block;
+  position: relative;
+  margin: 3px;
+
+  &:after {
+    padding-top: 193.515358361774%; // 293x567 ratio
+    display: block;
+    content: '';
+  }
+
+  > div.card {
+    position: absolute;
+    top: 0; bottom: 0; right: 0; left: 0; // fill parent
+  }
+}
+
+div.card {
+  background-size: 100%;
+  background-attachment: top center;
+  background-repeat: none;
+
+  &.face-down {
+    background-image: url('tarot/back.png') !important;
+  }
+
+  @for $num from 0 through 21 {
+    $padded: $num;
+    @if($padded < 10) {
+      $padded: '0' + '#{$padded}';
+    }
+
+    &#major-#{$num} {
+      background-image: url('tarot/major-#{$padded}.png');
+    }
+  }
+
+  @for $suit from 0 through 3 {
+    @for $num from 1 through 14 {
+      $padded: $num;
+      @if($padded < 10) {
+        $padded: '0' + '#{$padded}';
+      }
+
+      &#minor-#{$suit}-#{$num} {
+        background-image: url('tarot/minor-#{$suit}-#{$padded}.png');
+      }
+    }
+  }
+}
