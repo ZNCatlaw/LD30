@@ -33,20 +33,20 @@ div.cardbox {
 div.handbox {
   min-width: 150px;
   height: 142px; //141.75
-  margin: 3px;
+  margin: 4px;
   z-index: 10;
   white-space: nowrap;
 
   @include mediaquery('medium')  {
     min-width: 178px;
     height: 170px; //170.1
-    margin: 4px;
+    margin: 5px;
   }
 
   @include mediaquery('large') {
     min-width: 238px;
     height: 227px; //226.8
-    margin: 5px;
+    margin: 6px;
   }
 
   > div.cardbox {
@@ -69,6 +69,21 @@ div.handbox {
       margin-left: -1px;
     }
   }
+}
+
+#spread-slot-10.cardbox, #spread-slot-21.cardbox {
+  margin-left: 40px;
+  margin-right: 40px;
+}
+
+#spread-slot-15.cardbox, #spread-slot-10.cardbox, #spread-slot-4.cardbox {
+  margin-top: 16px;
+  margin-bottom: -1px;
+}
+
+#spread-slot-16.cardbox, #spread-slot-21.cardbox, #spread-slot-5.cardbox{
+  margin-top: -1px;
+  margin-bottom: 16px;
 }
 
 div.card {
