@@ -27,7 +27,7 @@ div.cardbox {
     margin: 5px;
   }
 
-  @include transform( translate3d(0, 0, 0) );
+  //@include transform( translate3d(0, 0, 0) );
 }
 
 div.handbox {
@@ -112,4 +112,18 @@ div.card {
 
   <%  end
     end %>
+}
+
+//Card interactivity
+
+.face-up {
+  cursor: pointer;
+}
+
+#context .face-up {
+  cursor: default;
+}
+
+#modal .cardbox:hover{
+  box-shadow: 0px 0px 25px lightblue;
 }
