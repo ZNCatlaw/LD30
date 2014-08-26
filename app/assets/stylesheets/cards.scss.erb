@@ -28,8 +28,6 @@ div.cardbox {
   }
 
   @include transform( translate3d(0, 0, 0) );
-
-  perspective: 800px;
 }
 
 div.handbox {
@@ -77,16 +75,17 @@ div.card {
   position: absolute;
   top: 0; bottom: 0; right: 0; left: 0; // fill parent
 
-  transform-style: preserve-3d;
-  transition: transform 1s;
+
+  @include transform-style( preserve-3d );
+  @include transition( transform 1s );
 
   .back, .front, .cover, .null {
       position: absolute;
       top: 0; bottom: 0; right: 0; left: 0; // fill parent
-      backface-visibility: hidden;
+      @include backface-visibility(hidden);
   }
 
-  .front {
+  .front, &.front {
       background-size: cover;
       background-position: top left;
       background-repeat: no-repeat;
@@ -96,11 +95,11 @@ div.card {
     background-image: url(<%= asset_path('tarot/back.png') %>) !important;
     background-position: center center;
     background-size: 225%;
-    transform: rotateY( 180deg );
+    @include transform( rotateY( 180deg ) );
   }
 
   &.face-down {
-    transform: rotateY( 180deg );
+    @include transform( rotateY( 180deg ) );
   }
 
   &.null {
@@ -109,9 +108,10 @@ div.card {
 
   &.cover {
       background-image: url(<%= asset_path('tarot/cover.png') %>);
-      background-size: cover;
-      background-position: top left;
-      background-repeat: no-repeat;
+  }
+
+  &.thehand {
+      background-image: url(<%= asset_path('tarot/thehand.png') %>);
   }
 
   <% 22.times do |num| %>
@@ -141,12 +141,12 @@ div.card {
 
 //Card interactivity
 
-.face-up {
+.face-up, .thehand {
   cursor: pointer;
 }
 
-#context .face-up {
-  cursor: default;
+#submit.cardbox:hover{
+  box-shadow: 0px 0px 25px lightblue;
 }
 
 #modal .cardbox:hover{

@@ -278,7 +278,7 @@ $(function () {
         $collection.find('.cardbox:empty:first').append($this);
     });
 
-    $collection.on("click", ".card", function () {
+    $collection.on("click", ".card:not(.thehand)", function () {
         var $this = $(this),
             number = $this.data("minor-number"),
             suit = $this.data("minor-suit"),

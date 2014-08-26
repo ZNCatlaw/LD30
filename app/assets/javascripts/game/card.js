@@ -234,7 +234,7 @@ CARDS = [
         submitPredicate: function (selection) {
             // collection and selection must be ZEMPTY
 
-            return $collection.find('.card').length === 0 && selection.length === 0;
+            return $collection.find('> .card').length === 0 && selection.length === 0;
         }
     }),
     new Card({
