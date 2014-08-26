@@ -143,7 +143,7 @@ clearSelect = function clearSelect (deck) {
         var card = deck.cards[number];
 
         card.selected = false;
-        getMinorCardHTML(card.number, card.suit).removeClass("selected");
+        getMinorCardHTML(card.number, card.suit).parent().removeClass("selected");
     });
 };
 
