@@ -30,17 +30,27 @@ body {
 
   @include mediaquery(large) {
     width: 1600px;
-    height: 975px;
+    height: 978px;
   }
 }
 
-#context, #title, #draw, #hands, #spread, #collection {
-  margin: auto;
+#context, #title, #draw, #submit, #hands, #spread, #collection {
+  margin: 0 auto;
+  padding: 0;
 }
 
-#context {
+#context, #draw {
   float: left;
   text-align: left;
+}
+
+#submit {
+  text-align: center;
+}
+
+#collection {
+  float: right;
+  text-align: right;
 }
 
 #title {
@@ -73,19 +83,16 @@ body {
   }
 }
 
-#draw, #hands {
-  float:right;
-  text-align: right;
-}
-
 #spread {
   text-align: center;
+  left: 0;
+  right: 0;
 }
 
-#collection {
+#hands {
   text-align: center;
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  margin-left: -25%;
+  width: 100%;
+  //left: 0;
+  //right: 0;
+  //bottom: 0;
 }

@@ -4,7 +4,6 @@ div.cardbox, div.handbox {
   overflow: hidden;
 
   background: rgba(0, 0, 0, 0.5);
-
   border: 1px outset #444;
   border-radius: 7px;
 }
@@ -12,19 +11,19 @@ div.cardbox, div.handbox {
 div.cardbox {
   width: 74px; //73.5
   height: 142px; //141.75
-  margin: 3px;
+  margin: 2px;
   z-index: 5;
 
   @include mediaquery('medium') {
     width: 88px; //88.2
     height: 170px; //170.1
-    margin: 4px;
+    margin: 3px;
   }
 
   @include mediaquery('large') {
     width: 118px; //117.6
     height: 227px; //226.8
-    margin: 5px;
+    margin: 4px;
   }
 
   @include transform( translate3d(0, 0, 0) );
@@ -33,24 +32,23 @@ div.cardbox {
 div.handbox {
   min-width: 150px;
   height: 142px; //141.75
-  margin: 4px;
+  margin: 3px;
   z-index: 10;
   white-space: nowrap;
 
   @include mediaquery('medium')  {
     min-width: 178px;
     height: 170px; //170.1
-    margin: 5px;
+    margin: 4px;
   }
 
   @include mediaquery('large') {
     min-width: 238px;
     height: 227px; //226.8
-    margin: 6px;
+    margin: 5px;
   }
 
   > div.cardbox {
-    display: inline-block;
     margin: 0;
     border: 0;
     border-left: 1px outset #444;
@@ -71,9 +69,20 @@ div.handbox {
   }
 }
 
-#spread-slot-10.cardbox, #spread-slot-21.cardbox {
-  margin-left: 40px;
-  margin-right: 40px;
+/*
+#draw .cardbox {
+  background: none;
+  border: 0;
+}
+*/
+
+#spread .cardbox, #context .cardbox {
+  border-width: 2px;
+}
+
+#spread-slot-10.cardbox, #spread-slot-21.cardbox, #spread-slot-11.cardbox, #spread-slot-0.cardbox, #spread-slot-20.cardbox, #spread-slot-9.cardbox {
+  margin-left: 16px;
+  margin-right: 16px;
 }
 
 #spread-slot-15.cardbox, #spread-slot-10.cardbox, #spread-slot-4.cardbox {
@@ -126,7 +135,16 @@ div.card {
   }
 
   &.thehand {
-      background-image: url(<%= asset_path('tarot/thehand.png') %>);
+      background-image: url(<%= asset_path('tarot/thehand-up.png') %>);
+      &.left {
+        background-image: url(<%= asset_path('tarot/thehand-left.png') %>);
+      }
+      &.right {
+        background-image: url(<%= asset_path('tarot/thehand-right.png') %>);
+      }
+      &.down {
+        background-image: url(<%= asset_path('tarot/thehand-down.png') %>);
+      }
   }
 
   <% 22.times do |num| %>
@@ -160,10 +178,6 @@ div.card {
   cursor: pointer;
 }
 
-#submit.cardbox:hover{
-  box-shadow: 0px 0px 25px lightblue;
-}
-
 #modal .cardbox:hover{
-  box-shadow: 0px 0px 25px lightblue;
+  box-shadow: 0px 0px 24px 6px lightblue;
 }

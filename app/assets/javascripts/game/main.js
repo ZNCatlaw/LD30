@@ -44,17 +44,20 @@ setContext = function setContext (card, deck) {
     card.zone = CONTEXT;
 
     // TODO update the submit callback
+    /*
     if (card.submitHandler === undefined) {
         $submit.addClass('hidden')
     } else {
         $submit.removeClass('hidden')
     }
+    */
 
     if (card.init != null) {
         card.init(deck);
     }
 
     // if this is a hub world, hide the $draw and build the $hand
+    /*
     if (card.hub === true) {
         $draw.hide();
         $hands.show();
@@ -63,6 +66,7 @@ setContext = function setContext (card, deck) {
         $hands.hide();
         $draw.show();
     }
+    */
 }
 
 setBackground = function setBackground(card){
@@ -294,7 +298,7 @@ $(function () {
             card = deck.getMajor(number);
 
         if (card.hands.length < 4 && card.submitHandler(deck)) {
-            $submit.addClass('hidden');
+            //$submit.addClass('hidden');
 
             // add the most recent hand to the hands annex
             // (which we assume is visible)
