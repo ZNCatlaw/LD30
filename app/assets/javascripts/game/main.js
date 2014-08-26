@@ -1,6 +1,6 @@
 // globals for elements in the layout
 var $spread, $context, $draw, $collection, $submit, $hands, $modal, $overlay, $infobox,
-    setContext, drawCards, getElementByCardNumber, selectMajorArcana,
+    setContext, drawCards, getElementByCardNumber, selectMajorArcana, dismissModal,
     DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
     THE_WHEEL = 10, NAMELESS_ARCANA = 13, THE_WORLD = 21;
@@ -14,13 +14,13 @@ getMinorCardHTML = function (number, suit) {
 }
 
 removeMinorCardHTML = function (card) {
-    var $child = getMinorCardHTML(card.number, card.suit);
+    var $card = getMinorCardHTML(card.number, card.suit);
 
     card.zone = DECK;
     card.selected = false;
-    $child.remove();
-    $child.removeClass("selected");
-    $minor_store.append($child);
+    $card.remove();
+    $card.parent().removeClass("selected");
+    $minor_store.append($card);
 }
 
 setContext = function setContext (card, deck) {
@@ -216,7 +216,7 @@ $(function () {
         $overlay.show();
     });
 
-    $overlay.on("click", function () {
+    dismissModal = function () {
         var $card = $modal.find(".card"),
             number = $card.data("major-number"),
             card = deck.getMajor(number);
@@ -228,14 +228,20 @@ $(function () {
 
         $modal.hide();
         $overlay.hide();
-    });
+    };
 
-    $modal.on("click", function () {
-        var number = $(this).find(".card").data("major-number"),
-            card = deck.getMajor(number), draw;
+    $overlay.on("click", dismissModal);
+    $modal.on("click", dismissModal);
+
+    $modal.on("click", ".card", function () {
+        var number = $(this).data("major-number"),
+            card = deck.getMajor(number), draw, context;
 
         // if the number is THE WORLD, then the context must be THE WHEEL
         // or we ignore the click
+        if (number === THE_WORLD && $context.find(".card").data("major-number") !== THE_WHEEL) {
+            return false;
+        }
 
         selectMajorArcana(card, deck);
         $modal.hide();
@@ -263,12 +269,8 @@ $(function () {
             suit = $this.data("minor-suit"),
             card = deck.getMinor(number, suit);
 
-        // select the card
-        $this.toggleClass("selected");
+        $this.parent().toggleClass("selected");
         card.selected = (card.selected === true)? false : true;
-
-        // TODO all "removing" of cards should go through a method
-        // so that the select effect can be removed
     });
 
     $submit.on("click", function () {

@@ -164,7 +164,7 @@ CARDS = [
         name: "Le Pape",
         number: 5,
         brief: shard_name + " and A Source of Sanctity",
-        description: "Discard all Minor Arcana, and draw a Minor Arcana for every face up Major Arcana.",
+        description: "Discard all Minor Arcana, and reveal an equal number of Major Arcana.",
         draw_size: function (deck) {
             var collection = _.where(deck.cards, { zone: COLLECTION }),
                 size = collection.length;
