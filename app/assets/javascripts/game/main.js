@@ -18,8 +18,8 @@ removeMinorCardHTML = function (card) {
 
     card.zone = DECK;
     card.selected = false;
-    $card.remove();
     $card.parent().removeClass("selected");
+    $card.remove();
     $minor_store.append($card);
 }
 
@@ -281,7 +281,7 @@ $(function () {
         $collection.find('.cardbox:empty:first').append($this);
     });
 
-    $collection.on("click", ".card", function () {
+    $collection.on("click", ".card:not(.thehand)", function () {
         var $this = $(this),
             number = $this.data("minor-number"),
             suit = $this.data("minor-suit"),
