@@ -1,5 +1,5 @@
 // globals for elements in the layout
-var $spread, $context, $draw, $collection, $submit, $hands, $modal, $overlay, $infobox,
+var $spread, $context, $draw, $collection, $submit, $hands, $modal, $overlay, $infobox, $home,
     setContext, drawCards, getElementByCardNumber, selectMajorArcana, dismissModal,
     DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
@@ -206,6 +206,23 @@ $(function () {
             number = $card.data("major-number"),
             card = deck.getMajor(number);
 
+        $home = $card.parent();
+        $modal.find(".cardbox").append($card);
+
+        $infobox.find(".title").text(card.name);
+        $infobox.find(".subtitle").text(card.brief);
+        $infobox.find(".description").text(card.description);
+
+        $modal.show();
+        $overlay.show();
+    });
+
+    $context.on("click", ".card", function () {
+        var $card = $(this),
+            number = $card.data("major-number"),
+            card = deck.getMajor(number);
+
+        $home = $card.parent();
         $modal.find(".cardbox").append($card);
 
         $infobox.find(".title").text(card.name);
@@ -221,11 +238,9 @@ $(function () {
             number = $card.data("major-number"),
             card = deck.getMajor(number);
 
-        $slot = $("#spread-slot-" + number);
         $card.remove();
 
-        $slot.append($card);
-
+        $home.append($card);
         $modal.hide();
         $overlay.hide();
     };
@@ -236,6 +251,9 @@ $(function () {
     $modal.on("click", ".card", function () {
         var number = $(this).data("major-number"),
             card = deck.getMajor(number), draw, context;
+
+        // if this is the context card, just dismiss
+        if (card.zone === CONTEXT) return dismissModal();
 
         // if the number is THE WORLD, then the context must be THE WHEEL
         // or we ignore the click
