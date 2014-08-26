@@ -126,10 +126,10 @@ div.card {
 
     4.times do |suit|
       14.times do |num|
-      num = num + 1
+        num = num + 1
   %>
 
-  &#minor-<%="#{suit}-#{num}" %> {
+  &#minor-<%="#{suit}-#{num - 1}" %> {
     .front {
         background-image: url(<%= asset_path("tarot/minor-#{suit}-#{num.to_s.rjust(2, '0')}.png") %>);
     }

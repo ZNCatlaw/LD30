@@ -55,7 +55,6 @@ defaultSubmitHandler = function (deck) {
         this.hands.push(hand);
         submitted = true;
     } else {
-        console.log("NOT VALID");
     }
 
     return submitted;
@@ -304,7 +303,7 @@ CARDS = [
                 }
 
                 // put all minor arcana back in the deck
-                if (card.zone !== HAND) {
+                if (card.order === "minor" && card.zone !== HAND) {
                     removeMinorCardHTML(card);
                 }
             });
@@ -338,7 +337,6 @@ CARDS = [
                     card.zone = DECK;
                 });
 
-                console.log(draw);
                 showDraw(draw);
                 submitted = true;
             }

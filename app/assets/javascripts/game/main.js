@@ -18,8 +18,8 @@ removeMinorCardHTML = function (card) {
 
     card.zone = DECK;
     card.selected = false;
-    $card.remove();
     $card.parent().removeClass("selected");
+    $card.remove();
     $minor_store.append($card);
 }
 
@@ -126,7 +126,7 @@ showDraw = function showDraw (draw) {
 
 // removes children from the draw annex, and puts them in the deck
 clearDraw = function clearDraw (deck) {
-    var $children = $draw.find('.cardbox:not(#deck)').children()
+    var $children = $draw.find('.cardbox:not(#deck)').children();
 
     _.each($children, function (child) {
         var $child = $(child),
@@ -158,9 +158,6 @@ selectMajorArcana = function (card, deck) {
     clearDraw(deck);
     clearSelect(deck);
     draw = deck.drawCards(card);
-
-    console.log("draw:", _.pluck(draw, "order"));
-    console.log("remaining:", deck.countMinor());
 
     showDraw(draw);
 
@@ -295,8 +292,6 @@ $(function () {
         var $card = $context.find('.card'),
             number = $card.data("major-number"),
             card = deck.getMajor(number);
-
-            console.log(card);
 
         if (card.hands.length < 4 && card.submitHandler(deck)) {
             $submit.addClass('hidden');

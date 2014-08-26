@@ -65,7 +65,6 @@ var Deck = (function () {
                     // if the draw fills up, filter out minor arcana before
                     // continuing
                     if (draw.length === 5) {
-                        console.log("draw too long");
                         deck = _.filter(deck, function (card) { return card.order === "major"; });
                     }
 
