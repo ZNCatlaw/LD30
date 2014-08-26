@@ -36,6 +36,10 @@ div.handbox {
   z-index: 10;
   white-space: nowrap;
 
+  &:empty{
+    border-color: transparent;
+  }
+
   @include mediaquery('medium')  {
     min-width: 178px;
     height: 170px; //170.1
@@ -69,30 +73,48 @@ div.handbox {
   }
 }
 
-/*
-#draw .cardbox {
-  background: none;
-  border: 0;
+#context .cardbox {
+  border-color: lightblue;
+  box-shadow: 0px 0px 4px 3px white;
 }
-*/
 
-#spread .cardbox, #context .cardbox {
+#draw .cardbox {
+  background-color: rgba(0,0,0, 0.25);
+  border-color: transparent;
+}
+
+#draw .cardbox {
+  background-color: rgba(0,0,0, 0.25);
+  border-color: transparent;
+}
+
+@include keyframes(fade) {
+  from {
+    opacity: 0.9;
+  }
+  to {
+    opacity: 0.1;
+  }
+}
+
+#draw .card {
+  @include animation( fade 3s $ease-in-out-sine );
+  @include animation-iteration-count(infinite);
+  @include animation-direction(alternate-reverse);
+}
+
+#spread .cardbox, #context .cardbox, #submit .cardbox {
   border-width: 2px;
 }
 
-#spread-slot-10.cardbox, #spread-slot-21.cardbox, #spread-slot-11.cardbox, #spread-slot-0.cardbox, #spread-slot-20.cardbox, #spread-slot-9.cardbox {
-  margin-left: 16px;
+#spread-slot-11.cardbox, #spread-slot-20.cardbox {
+  margin-left: 32px;
   margin-right: 16px;
 }
 
-#spread-slot-15.cardbox, #spread-slot-10.cardbox, #spread-slot-4.cardbox {
-  margin-top: 16px;
-  margin-bottom: -1px;
-}
-
-#spread-slot-16.cardbox, #spread-slot-21.cardbox, #spread-slot-5.cardbox{
-  margin-top: -1px;
-  margin-bottom: 16px;
+#spread-slot-0.cardbox, #spread-slot-9.cardbox {
+  margin-left: 16px;
+  margin-right: 32px;
 }
 
 div.card {
@@ -180,4 +202,9 @@ div.card {
 
 #modal .cardbox:hover{
   box-shadow: 0px 0px 24px 6px lightblue;
+}
+
+.noninteractive:hover, .noninteractive:hover .face-up {
+  box-shadow: none !important;
+  cursor: default !important;
 }

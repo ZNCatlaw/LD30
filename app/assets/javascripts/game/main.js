@@ -43,30 +43,22 @@ setContext = function setContext (card, deck) {
     $context.find('.cardbox').append($card);
     card.zone = CONTEXT;
 
-    // TODO update the submit callback
-    /*
-    if (card.submitHandler === undefined) {
-        $submit.addClass('hidden')
-    } else {
-        $submit.removeClass('hidden')
-    }
-    */
-
     if (card.init != null) {
         card.init(deck);
     }
+}
 
-    // if this is a hub world, hide the $draw and build the $hand
-    /*
-    if (card.hub === true) {
-        $draw.hide();
-        $hands.show();
-
+setTheHand = function setTheHand(card) {
+    //show the correct hand button
+    if (card === 'hub' || card.hub === true) {
+        $the_hand.addClass('down').removeClass('up left right noninteractive');
+    } else if (card === 'send' || card.submitHandler !== undefined){
+        $the_hand.addClass('left').removeClass('up down right noninteractive');
+    } else if (card === 'collect' || $draw.find('.card').length) {
+        $the_hand.addClass('right').removeClass('up left down noninteractive');
     } else {
-        $hands.hide();
-        $draw.show();
+        $the_hand.removeClass('up down left right').addClass('noninteractive');
     }
-    */
 }
 
 setBackground = function setBackground(card){
@@ -123,7 +115,6 @@ showDraw = function showDraw (draw) {
             var $card = getMinorCardHTML(card.number, card.suit);
             $card.remove();
             $draw.find('.cardbox:empty:first').append($card);
-            $card.show();
         }
     });
 };
@@ -165,6 +156,8 @@ selectMajorArcana = function (card, deck) {
 
     showDraw(draw);
 
+    setTheHand(card);
+
     // if only one major arcana is showing (the context) we must reveal the nameless arcana
     // TODO -- right now when we have chosen the nameless_arcana, it ends up being face up in the
     // context spot. Whatever we do, I'd like this game state to be identical to the initial
@@ -190,6 +183,7 @@ $(function () {
     $modal = $("#modal");
     $infobox = $modal.find(".infobox");
     $minor_store = $("#minor-store");
+    $the_hand = $submit.find(".thehand");
     $cardbox_template = $($("script[role=cardbox]").html());
 
     // to start the game, we build the spread and then select the wheel
@@ -221,10 +215,15 @@ $(function () {
     $context.on("click", ".card", function () {
         var $card = $(this),
             number = $card.data("major-number"),
-            card = deck.getMajor(number);
+            card = deck.getMajor(number),
+            $modal_cardbox = $modal.find(".cardbox");
 
         $home = $card.parent();
-        $modal.find(".cardbox").append($card);
+        if (card.zone === CONTEXT) {
+            $modal_cardbox.addClass('noninteractive');
+        }
+        $modal_cardbox.append($card);
+
 
         $infobox.find(".title").text(card.name);
         $infobox.find(".subtitle").text(card.brief);
@@ -242,6 +241,7 @@ $(function () {
         $card.remove();
 
         $home.append($card);
+        $modal.find(".cardbox").removeClass('noninteractive');
         $modal.hide();
         $overlay.hide();
     };
@@ -298,8 +298,6 @@ $(function () {
             card = deck.getMajor(number);
 
         if (card.hands.length < 4 && card.submitHandler(deck)) {
-            //$submit.addClass('hidden');
-
             // add the most recent hand to the hands annex
             // (which we assume is visible)
             var $container = $hands.find('.handbox:empty:first')

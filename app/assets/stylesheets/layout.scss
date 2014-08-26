@@ -35,7 +35,7 @@ body {
 }
 
 #context, #title, #draw, #submit, #hands, #spread, #collection {
-  margin: 0 auto;
+  margin: 3px auto 0 auto;
   padding: 0;
 }
 
@@ -45,6 +45,7 @@ body {
 }
 
 #submit {
+  padding-top: 2px;
   text-align: center;
 }
 
@@ -92,7 +93,4 @@ body {
 #hands {
   text-align: center;
   width: 100%;
-  //left: 0;
-  //right: 0;
-  //bottom: 0;
 }
