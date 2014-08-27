@@ -28,19 +28,24 @@ body {
   @include transition( opacity 1s $ease-in-out-sine );
 
   margin: auto;
-  position: relative;
-  padding: 0;
-  width: 1000px;
-  height: 650px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+
+  overflow: hidden;
+  width: $base-width;
+  height: $base-height;
 
   @include mediaquery(medium) {
-    width: 1200px;
-    height: 780px;
+    width: $base-width * $md-mult;
+    height: $base-height * $md-mult;
   }
 
   @include mediaquery(large) {
-    width: 1600px;
-    height: 978px;
+    width: $base-width * $lg-mult;
+    height: $base-height * $lg-mult;
   }
 }
 

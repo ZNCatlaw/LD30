@@ -1,15 +1,17 @@
 //@import url(//fonts.googleapis.com/css?family=Goudy+Bookletter+1911);
 @import url(//fonts.googleapis.com/css?family=Caudex:700,700italic);
 
+$base-width: 1024px;
+$base-height: 640px;
 $md-mult: 1.2;
-$lg-mult: 1.6;
+$lg-mult: 1.5125;
 
 @mixin mediaquery($point) {
   @if $point == medium {
-    @media (min-width: 1200px) and (min-height: 780px) { @content; }
+    @media (min-width: ($base-width * $md-mult)) and (min-height: ($base-height * $md-mult)) { @content; }
   }
   @else if $point == large {
-    @media (min-width: 1600px) and (min-height: 975px) { @content; }
+    @media (min-width: ($base-width * $lg-mult)) and (min-height: ($base-height * $lg-mult)) { @content; }
   }
 }
 
