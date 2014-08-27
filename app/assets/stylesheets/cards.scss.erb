@@ -32,13 +32,11 @@ div.cardbox {
   @include mediaquery('medium') {
     width: 88px; //88.2
     height: 170px; //170.1
-    margin: 3px;
   }
 
   @include mediaquery('large') {
     width: 118px; //117.6
     height: 227px; //226.8
-    margin: 4px;
   }
 
   @include transform( translate3d(0, 0, 0) );
@@ -58,16 +56,14 @@ div.handbox {
   @include mediaquery('medium')  {
     min-width: 178px;
     height: 170px; //170.1
-    margin: 4px;
   }
 
   @include mediaquery('large') {
     min-width: 238px;
     height: 227px; //226.8
-    margin: 5px;
   }
 
-  > div.cardbox {
+  div.cardbox {
     margin: 0;
     border: 0;
     border-left: 1px outset #444;
@@ -114,7 +110,7 @@ div.handbox {
   @include animation-direction(alternate);
 }
 
-#hands .handbox:not(:empty) {
+#hands .handbox .wrapper {
   @include animation( fadeWhole 1.5s $ease-in-sine);
 }
 
@@ -173,7 +169,10 @@ div.card {
   }
 
   &.thehand {
-      background-image: url(<%= asset_path('tarot/thehand-up.png') %>);
+      background-image: url(<%= asset_path('tarot/null.png') %>);
+      &.up {
+        background-image: url(<%= asset_path('tarot/thehand-up.png') %>);
+      }
       &.left {
         background-image: url(<%= asset_path('tarot/thehand-left.png') %>);
       }

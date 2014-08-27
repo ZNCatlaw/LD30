@@ -185,6 +185,7 @@ $(function () {
     $minor_store = $("#minor-store");
     $the_hand = $submit.find(".thehand");
     $cardbox_template = $($("script[role=cardbox]").html());
+    $wrapper_template = $($("script[role=wrapper]").html());
 
     // to start the game, we build the spread and then select the wheel
     buildSpread(deck);
@@ -300,7 +301,8 @@ $(function () {
         if (card.submitHandler && card.submitHandler(deck)) {
             // add the most recent hand to the hands annex
             // (which we assume is visible)
-            var $container = $hands.find('.handbox:empty:first')
+            var $container = $wrapper_template.clone(),
+                $handbox = $hands.find('.handbox:empty:first')
                 hand = _.last(card.hands);
 
             _.each(hand, function (card, index) {
@@ -313,6 +315,10 @@ $(function () {
                 $cardbox.append($card);
                 $container.append($cardbox);
             });
+
+            if($container.children().length > 0) {
+                $handbox.append($container);
+            }
         }else if (card.submitHandler === undefined){
             // Pull all draw cards into the collection if possible
             var $draw_cards = $draw.find('.card'),
