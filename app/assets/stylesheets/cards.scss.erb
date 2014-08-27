@@ -8,18 +8,13 @@
   to { opacity: 1; }
 }
 
-@include keyframes(fadeHalf) {
-  from { opacity: 0.5; }
-  to { opacity: 1; }
-}
-
 div.cardbox, div.handbox {
   display: inline-block;
   position: relative;
   overflow: hidden;
 
   background: rgba(0, 0, 0, 0.5);
-  border: 1px outset #444;
+  border: 2px outset #444;
   border-radius: 7px;
 }
 
@@ -32,11 +27,13 @@ div.cardbox {
   @include mediaquery('medium') {
     width: 88px; //88.2
     height: 170px; //170.1
+    margin: 3px;
   }
 
   @include mediaquery('large') {
     width: 118px; //117.6
     height: 227px; //226.8
+    margin: 4px;
   }
 
   @include transform( translate3d(0, 0, 0) );
@@ -45,7 +42,7 @@ div.cardbox {
 div.handbox {
   min-width: 150px;
   height: 142px; //141.75
-  margin: 3px;
+  margin: auto 5px;
   z-index: 10;
   white-space: nowrap;
 
@@ -56,11 +53,13 @@ div.handbox {
   @include mediaquery('medium')  {
     min-width: 178px;
     height: 170px; //170.1
+    margin: auto 10px;
   }
 
   @include mediaquery('large') {
     min-width: 238px;
     height: 227px; //226.8
+    margin: auto 15px;
   }
 
   div.cardbox {
@@ -86,17 +85,13 @@ div.handbox {
 
 #context .cardbox {
   border-color: lightblue;
+  box-shadow: 0px 0px 8px 4px white;
+}
 
+#context .cardbox, #submit .cardbox{
   background-image: url(<%= asset_path('tarot/null.png') %>);
   background-size: cover;
   background-origin: top left;
-
-  box-shadow: 0px 0px 4px 3px white;
-}
-
-#draw .cardbox {
-  background-color: rgba(0,0,0, 0.25);
-  border-color: transparent;
 }
 
 #draw .cardbox {
@@ -111,12 +106,15 @@ div.handbox {
 }
 
 #hands .handbox .wrapper {
-  @include animation( fadeWhole 1.5s $ease-in-sine);
+  @include animation( fadeWhole 1.5s $ease-in-out-sine);
 }
 
-#spread .cardbox, #context .cardbox, #submit .cardbox {
-  border-width: 2px;
-  .card { @include animation( fadeWhole 0.5s $ease-in-sine); }
+#spread, #context {
+  .card { @include animation( fadeWhole 0.5s $ease-in-out-sine); }
+}
+
+#submit .card {
+  @include animation( fadeWhole 0.5s $ease-in-out-sine);
 }
 
 #spread-slot-11.cardbox, #spread-slot-20.cardbox {
@@ -169,7 +167,8 @@ div.card {
   }
 
   &.thehand {
-      background-image: url(<%= asset_path('tarot/null.png') %>);
+      @include transition( opacity 1.5s $ease-in-out-sine );
+      &:not(.active){ opacity: 0; }
       &.up {
         background-image: url(<%= asset_path('tarot/thehand-up.png') %>);
       }
@@ -211,15 +210,47 @@ div.card {
 
 //Card interactivity
 
-.face-up, .thehand {
+.cardbox.selected {
+  box-shadow: 0px 0px 3px 3px lightblue;
+  border-style: double;
+  border-color: salmon !important;
+}
+
+.card.face-up {
   cursor: pointer;
 }
 
-#modal .cardbox:hover{
-  box-shadow: 0px 0px 24px 6px lightblue;
+#context .card, #spread .face-up {
+  cursor: zoom-in;
 }
 
-.noninteractive:hover, .noninteractive:hover .face-up {
-  box-shadow: none !important;
+#draw .card {
+  cursor: copy;
+}
+
+#collection .card {
+  cursor: cell;
+}
+
+.noninteractive .card, .card.noninteractive {
   cursor: default !important;
+}
+
+#modal .cardbox {
+  @include transition( box-shadow 1s );
+  &:hover{
+    box-shadow: 0px 0px 32px 4px lightblue;
+  }
+}
+
+#modal, #overlay {
+  cursor: alias;
+}
+
+#modal .cardbox.noninteractive .card {
+  cursor: zoom-out !important;
+}
+
+.cardbox.noninteractive:hover {
+  box-shadow: none !important;
 }

@@ -17,7 +17,7 @@ body {
 }
 
 #background-images > div {
-  @include transition( opacity 5s $ease-in-out-sine );
+  @include transition( opacity 3s $ease-in-out-sine );
   &:not(.active){
     opacity: 0;
   }
@@ -25,7 +25,7 @@ body {
 
 #container {
   opacity: 0; //jQuery will fix this!
-  @include transition( opacity 1s $ease-in-sine );
+  @include transition( opacity 1s $ease-in-out-sine );
 
   margin: auto;
   position: relative;
@@ -52,6 +52,11 @@ body {
 #context, #draw {
   float: left;
   text-align: left;
+  margin-left: 3px;
+}
+
+#context {
+  margin-right: 3px;
 }
 
 #submit {
@@ -62,6 +67,7 @@ body {
 #collection {
   float: right;
   text-align: right;
+  margin-right: 3px;
 }
 
 #title {

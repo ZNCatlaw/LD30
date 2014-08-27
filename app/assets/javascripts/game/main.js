@@ -49,15 +49,26 @@ setContext = function setContext (card, deck) {
 }
 
 setTheHand = function setTheHand(card) {
+    var $active = $the_hand.filter('.active'),
+        $submit_cardbox = $submit.find('.cardbox'),
+        $target;
+
+    $submit_cardbox.removeClass('noninteractive');
+
     //show the correct hand button
     if (card === 'hub' || card.hub === true) {
-        $the_hand.addClass('down').removeClass('up left right noninteractive');
+        $target = $the_hand.filter('.down');
     } else if (card === 'send' || card.submitHandler !== undefined){
-        $the_hand.addClass('left').removeClass('up down right noninteractive');
+        $target = $the_hand.filter('.left');
     } else if (card === 'collect' || $draw.find('.card').length) {
-        $the_hand.addClass('right').removeClass('up left down noninteractive');
+        $target = $the_hand.filter('.right');
     } else {
-        $the_hand.removeClass('up down left right').addClass('noninteractive');
+        $target = $the_hand.filter('.null');
+        $submit_cardbox.addClass('noninteractive');
+    }
+    if($active[0] !== $target[0]){
+        $active.removeClass('active').css('opacity', 0);
+        $target.addClass('active').css('opacity', 1);
     }
 }
 
@@ -317,7 +328,7 @@ $(function () {
             });
 
             if($container.children().length > 0) {
-                $handbox.append($container);
+                $handbox.append($container.addClass('noninteractive'));
             }
         }else if (card.submitHandler === undefined){
             // Pull all draw cards into the collection if possible
