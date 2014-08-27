@@ -283,6 +283,7 @@ $(function () {
         }
 
         selectMajorArcana(card, deck);
+        sfx.bell.play();
         $modal.hide();
         $overlay.hide();
     });
@@ -343,6 +344,7 @@ $(function () {
 
             // once the submit handler has run succesfully, we don't want it
             // to be able to run again. So we send in a null object
+            sfx.shuffle.play();
             setTheHand(null);
 
         } else if (card.submitHandler === undefined) {
@@ -350,7 +352,8 @@ $(function () {
             var $draw_cards = $draw.find('.card'),
                 $coll_slots = $collection.find('.cardbox'),
                 $coll_cards = $collection.find('.card');
-            if ($coll_slots.length - $coll_cards.length >= $draw_cards.length) {
+            if ($draw_cards.length > 0 && $coll_slots.length - $coll_cards.length >= $draw_cards.length) {
+                sfx.shuffle.play();
                 $draw_cards.each(function() { $(this).click(); });
             }
         }

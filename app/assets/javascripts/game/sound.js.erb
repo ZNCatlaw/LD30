@@ -13,6 +13,16 @@ music = new Howl({
   onload: function() { nextMusicSegment(); }
 });
 
+sfx = {
+  bell: new Howl({
+    src: ['<%= asset_path('bell.ogg') %>', '<%= asset_path('bell.mp3') %>'],
+    volume: 0.15
+  }),
+  shuffle: new Howl({
+    src: ['<%= asset_path('shuffle.ogg') %>', '<%= asset_path('shuffle.mp3') %>']
+  })
+}
+
 nextMusicSegment = function nextMusicSegment(current_sprite, fade_time) {
   if (current_sprite == null) { current_sprite = _.sample(['part1', 'full']); }
   if (fade_time == null) { fade_time = 10000;}
@@ -21,7 +31,7 @@ nextMusicSegment = function nextMusicSegment(current_sprite, fade_time) {
 
   music.once('play', function(sound_id){
     // Fade in
-    console.log('SND: Fade in "' + current_sprite + '" (' + fade_time + 'ms)');
+    //console.log('SND: Fade in "' + current_sprite + '" (' + fade_time + 'ms)');
     music.fade(0, 1, fade_time, sound_id);
 
     //Determine next sound.
@@ -39,7 +49,7 @@ nextMusicSegment = function nextMusicSegment(current_sprite, fade_time) {
     console.log('SND: Next "' + next_sprite + '" (in '+ timer +'ms)');
     setTimeout(function(){
       nextMusicSegment(next_sprite);
-      console.log('SND: Fade out "' + current_sprite + '" (' + fade_time + 'ms)');
+      //console.log('SND: Fade out "' + current_sprite + '" (' + fade_time + 'ms)');
       music.fade(1, 0, fade_time, sound_id);
     }, timer);
 
