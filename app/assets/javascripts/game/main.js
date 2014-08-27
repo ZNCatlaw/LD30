@@ -1,6 +1,6 @@
 // globals for elements in the layout
 var $spread, $context, $draw, $collection, $submit, $hands, $modal, $overlay, $infobox, $home,
-    setContext, drawCards, getElementByCardNumber, selectMajorArcana, dismissModal,
+    setContext, drawCards, getElementByCardNumber, selectMajorArcana, dismissModal, setTheHand,
     DECK = 0, CONTEXT = 1, DRAW = 2, SPREAD = 3, HAND = 4, COLLECTION = 5,
     MINOR = 56, MAJOR = 22, WEIGHTS = 14,
     THE_WHEEL = 10, NAMELESS_ARCANA = 13, THE_WORLD = 21;
@@ -49,23 +49,30 @@ setContext = function setContext (card, deck) {
 }
 
 setTheHand = function setTheHand(card) {
+    console.log("setTheHand", card);
     var $active = $the_hand.filter('.active'),
         $submit_cardbox = $submit.find('.cardbox'),
         $target;
 
-    $submit_cardbox.removeClass('noninteractive');
+    // assume the hand is null
+    $target = $the_hand.filter('.null');
+    $submit_cardbox.addClass('noninteractive');
 
-    //show the correct hand button
-    if (card === 'hub' || card.hub === true) {
-        $target = $the_hand.filter('.down');
-    } else if (card === 'send' || card.submitHandler !== undefined){
-        $target = $the_hand.filter('.left');
-    } else if (card === 'collect' || $draw.find('.card').length) {
-        $target = $the_hand.filter('.right');
-    } else {
-        $target = $the_hand.filter('.null');
-        $submit_cardbox.addClass('noninteractive');
+    // if, however, there is a card, then we choose a
+    // facing for the hand
+    if (card !== null) {
+        $submit_cardbox.removeClass('noninteractive');
+
+        //show the correct hand button
+        if (card === 'hub' || card.hub === true) {
+            $target = $the_hand.filter('.down');
+        } else if (card === 'send' || card.submitHandler !== undefined){
+            $target = $the_hand.filter('.left');
+        } else if (card === 'collect' || $draw.find('.card').length) {
+            $target = $the_hand.filter('.right');
+        }
     }
+
     if($active[0] !== $target[0]){
         $active.removeClass('active').css('opacity', 0);
         $target.addClass('active').css('opacity', 1);
@@ -309,7 +316,7 @@ $(function () {
             number = $card.data("major-number"),
             card = deck.getMajor(number);
 
-        if (card.submitHandler && card.submitHandler(deck)) {
+        if ($submit.find(".noninteractive").length === 0 && card.submitHandler && card.submitHandler(deck)) {
             // add the most recent hand to the hands annex
             // (which we assume is visible)
             var $container = $wrapper_template.clone(),
@@ -327,15 +334,22 @@ $(function () {
                 $container.append($cardbox);
             });
 
-            if($container.children().length > 0) {
+            // this appends the new hand to the hand container, and
+            // ensures that the cards inside are non-interactive
+            if ($container.children().length > 0) {
                 $handbox.append($container.addClass('noninteractive'));
             }
-        }else if (card.submitHandler === undefined){
+
+            // once the submit handler has run succesfully, we don't want it
+            // to be able to run again. So we send in a null object
+            setTheHand(null);
+
+        } else if (card.submitHandler === undefined) {
             // Pull all draw cards into the collection if possible
             var $draw_cards = $draw.find('.card'),
                 $coll_slots = $collection.find('.cardbox'),
                 $coll_cards = $collection.find('.card');
-            if($coll_slots.length - $coll_cards.length >= $draw_cards.length) {
+            if ($coll_slots.length - $coll_cards.length >= $draw_cards.length) {
                 $draw_cards.each(function() { $(this).click(); });
             }
         }
