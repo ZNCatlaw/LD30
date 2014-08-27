@@ -19,6 +19,7 @@ $cb-hpadding: 3px;
 $cb-eheight: $cb-height + ($cb-border * 2) + ($cb-vpadding * 2);
 $cb-backw: $cb-width * $cb-back-mult;
 $cb-backh: $cb-height * $cb-back-mult;
+$cb-radius: 7px;
 
 $cb-width-md: $cb-width * $md-mult;
 $cb-height-md: $cb-height * $md-mult;
@@ -27,6 +28,7 @@ $cb-hpadding-md: $cb-hpadding * $md-mult;
 $cb-eheight-md: $cb-height-md + ($cb-border * 2) + ($cb-vpadding-md * 2);
 $cb-backw-md: $cb-width-md * $cb-back-mult;
 $cb-backh-md: $cb-height-md * $cb-back-mult;
+$cb-radius-md: $cb-radius * $md-mult;
 
 $cb-width-lg: $cb-width * $lg-mult;
 $cb-height-lg: $cb-height * $lg-mult;
@@ -35,6 +37,7 @@ $cb-hpadding-lg: $cb-hpadding * $lg-mult;
 $cb-eheight-lg: $cb-height-lg + ($cb-border * 2) + ($cb-vpadding-lg * 2);
 $cb-backw-lg: $cb-width-lg * $cb-back-mult;
 $cb-backh-lg: $cb-height-lg * $cb-back-mult;
+$cb-radius-lg: $cb-radius * $lg-mult;
 
 div.cardbox, div.handbox {
   display: inline-block;
@@ -43,15 +46,16 @@ div.cardbox, div.handbox {
 
   background: rgba(0, 0, 0, 0.5);
   border: 2px outset #444;
-  border-radius: 7px;
 
   margin: $cb-vpadding $cb-hpadding;
   height: $cb-height;
   @include mediaquery('medium') {
+    border-radius: $cb-radius-md;
     margin: $cb-vpadding-md $cb-hpadding-md;
     height: $cb-height-md;
   }
   @include mediaquery('large') {
+    border-radius: $cb-radius-lg;
     margin: $cb-vpadding-lg $cb-hpadding-lg;
     height: $cb-height-lg;
   }
@@ -81,15 +85,17 @@ div.handbox {
     margin: 0;
     border: 0;
     border-left: 1px outset #444;
-    border-radius: 7px 0 0 7px;
+    border-radius: $cb-radius 0 0 $cb-radius;
 
     margin-left: -$cb-width / 2 - 0.3;
 
     @include mediaquery('medium') {
       margin-left: -$cb-width-md / 2 - 0.3;
+      border-radius: $cb-radius-md 0 0 $cb-radius-md;
     }
     @include mediaquery('large') {
       margin-left: -$cb-width-lg / 2 - 0.3;
+      border-radius: $cb-radius-lg 0 0 $cb-radius-lg;
     }
 
     &:first-child{
