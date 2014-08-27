@@ -283,7 +283,11 @@ $(function () {
         }
 
         selectMajorArcana(card, deck);
-        sfx.bell.play();
+
+        var x = Math.random() * 5 - 2.5,
+            y = Math.random() * 3 - 1.5;
+        sfx.bell.pos(x, y, 0).play();
+
         $modal.hide();
         $overlay.hide();
     });

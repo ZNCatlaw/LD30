@@ -46,7 +46,7 @@ nextMusicSegment = function nextMusicSegment(current_sprite, fade_time) {
 
     // Set fade timer
     var timer = duration - fade_time;
-    console.log('SND: Next "' + next_sprite + '" (in '+ timer +'ms)');
+    //console.log('SND: Next "' + next_sprite + '" (in '+ timer +'ms)');
     setTimeout(function(){
       nextMusicSegment(next_sprite);
       //console.log('SND: Fade out "' + current_sprite + '" (' + fade_time + 'ms)');
