@@ -44,9 +44,13 @@ body {
   }
 }
 
-#context, #title, #draw, #submit, #hands, #spread, #collection {
+#context, #title, #draw, #submit, #spread, #collection {
   margin: 3px auto 0 auto;
   padding: 0;
+}
+
+#hands {
+  margin: 3px auto 12px auto;
 }
 
 #context, #draw {
