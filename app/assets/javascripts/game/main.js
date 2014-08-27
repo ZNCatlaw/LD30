@@ -49,7 +49,6 @@ setContext = function setContext (card, deck) {
 }
 
 setTheHand = function setTheHand(card) {
-    console.log("setTheHand", card);
     var $active = $the_hand.filter('.active'),
         $submit_cardbox = $submit.find('.cardbox'),
         $target;
@@ -70,6 +69,8 @@ setTheHand = function setTheHand(card) {
             $target = $the_hand.filter('.left');
         } else if (card === 'collect' || $draw.find('.card').length) {
             $target = $the_hand.filter('.right');
+        } else {
+            $submit_cardbox.addClass('noninteractive');
         }
     }
 

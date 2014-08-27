@@ -287,19 +287,20 @@ CARDS = [
         number: 13,
         brief: shard_name + " and a Source of Ending",
         description: "Hide all face up Major Arcana and discard all Minor Arcana.  Reveal La Roue de Fortune.",
-        // put all cards back in the deck
-        // unless those cards are part of hands
         filter: function (card) {
             return card.name === "La Roue de Fortune";
         },
+        // put all cards back in the deck
+        // unless those cards are part of hands
         init: function (deck) {
-            var $body = $("body");
             _.each(deck.cards, function (card) {
                 // flip all face up arcana cards in the spread
                 if (card.zone === SPREAD) {
                     var $card = getMajorCardHTML(card.number);
                     $card.removeClass("face-up");
                     $card.addClass("face-down");
+
+                    card.zone = DECK;
                 }
 
                 // put all minor arcana back in the deck
