@@ -35,6 +35,7 @@ var buildMinorArcana = function buildMinorArcana (deck) {
         $card.attr("data-minor-number", card.number);
         $card.attr("data-minor-suit", card.suit);
         $card.attr("id", 'minor-' + card.suit + '-' + card.number);
+        $card.attr("title", NAMES_FACE[card.number] + ' ' + NAMES_SUITS[card.suit]);
 
         $minor_store.append($card);
     });
