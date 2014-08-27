@@ -84,8 +84,8 @@ setBackground = function setBackground(card){
   }
 
   if($active[0] !== $target[0]){
-    $active.removeClass('active').fadeOut(3000);
-    $target.hide().addClass('active').removeClass('hidden').fadeIn(1500);
+    $active.removeClass('active').css('opacity', 0);
+    $target.addClass('active').css('opacity', 1);
   }
 }
 
@@ -297,7 +297,7 @@ $(function () {
             number = $card.data("major-number"),
             card = deck.getMajor(number);
 
-        if (card.hands.length < 4 && card.submitHandler(deck)) {
+        if (card.submitHandler && card.submitHandler(deck)) {
             // add the most recent hand to the hands annex
             // (which we assume is visible)
             var $container = $hands.find('.handbox:empty:first')
@@ -313,6 +313,18 @@ $(function () {
                 $cardbox.append($card);
                 $container.append($cardbox);
             });
+        }else if (card.submitHandler === undefined){
+            // Pull all draw cards into the collection if possible
+            var $draw_cards = $draw.find('.card'),
+                $coll_slots = $collection.find('.cardbox'),
+                $coll_cards = $collection.find('.card');
+            if($coll_slots.length - $coll_cards.length >= $draw_cards.length) {
+                $draw_cards.each(function() { $(this).click(); });
+            }
         }
     });
-})
+});
+
+$(window).load(function(){
+    $("#container").css('opacity', 1);
+});

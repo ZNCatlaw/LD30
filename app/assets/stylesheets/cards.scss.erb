@@ -1,3 +1,18 @@
+@include keyframes(fade) {
+  from { opacity: 0.1; }
+  to { opacity: 0.9; }
+}
+
+@include keyframes(fadeWhole) {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@include keyframes(fadeHalf) {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
 div.cardbox, div.handbox {
   display: inline-block;
   position: relative;
@@ -75,6 +90,11 @@ div.handbox {
 
 #context .cardbox {
   border-color: lightblue;
+
+  background-image: url(<%= asset_path('tarot/null.png') %>);
+  background-size: cover;
+  background-origin: top left;
+
   box-shadow: 0px 0px 4px 3px white;
 }
 
@@ -88,23 +108,19 @@ div.handbox {
   border-color: transparent;
 }
 
-@include keyframes(fade) {
-  from {
-    opacity: 0.9;
-  }
-  to {
-    opacity: 0.1;
-  }
-}
-
 #draw .card {
   @include animation( fade 3s $ease-in-out-sine );
   @include animation-iteration-count(infinite);
-  @include animation-direction(alternate-reverse);
+  @include animation-direction(alternate);
+}
+
+#hands .handbox:not(:empty) {
+  @include animation( fadeWhole 1.5s $ease-in-sine);
 }
 
 #spread .cardbox, #context .cardbox, #submit .cardbox {
   border-width: 2px;
+  .card { @include animation( fadeWhole 0.5s $ease-in-sine); }
 }
 
 #spread-slot-11.cardbox, #spread-slot-20.cardbox {

@@ -16,7 +16,17 @@ body {
   font-family: Georgia, sans-serif;
 }
 
+#background-images > div {
+  @include transition( opacity 5s $ease-in-out-sine );
+  &:not(.active){
+    opacity: 0;
+  }
+}
+
 #container {
+  opacity: 0; //jQuery will fix this!
+  @include transition( opacity 1s $ease-in-sine );
+
   margin: auto;
   position: relative;
   padding: 0;
