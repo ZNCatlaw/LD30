@@ -313,7 +313,7 @@ CARDS = [
         name: "Tempérance",
         number: 14 ,
         brief: shard_name + " and a Source of Transformation",
-        description: "Select any number of face up Minor Arcana to transform. Cups change to Swords, Batons change to coins, and vice versa.",
+        description: "Select any number of face up Minor Arcana to transform. Coupes change to Épées, Bâtons change to Deniers, and vice versa.",
         draw_size: function () { return 0; },
         submitHandler: function (deck) {
             // get all the selected cards
@@ -398,7 +398,7 @@ CARDS = [
         name: "La Lune",
         number: 18,
         brief: shard_name + " and a Source of Reception",
-        description: "Draw three Minor Arcana, but only Cups and Coins.",
+        description: "Draw three Minor Arcana, but only Coupes and Deniers.",
         draw_size: function () { return 3; },
         filter: function (card) {
             // cups and coins
@@ -409,7 +409,7 @@ CARDS = [
         name: "Le Soleil",
         number: 19,
         brief: shard_name + " and a Source of Action",
-        description: "Draw three Minor Arcana, but only Batons and Swords.",
+        description: "Draw three Minor Arcana, but only Bâtons and Épées.",
         draw_size: function () { return 3; },
         filter: function (card) {
             // swords and batons
