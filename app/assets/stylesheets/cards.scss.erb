@@ -8,6 +8,33 @@
   to { opacity: 1; }
 }
 
+$back-mult: 3;
+
+$cb-width: 73.5px;
+$cb-height: 141.75px;
+$cb-border: 2px;
+$cb-vpadding: 5px;
+$cb-hpadding: 2px;
+$cb-eheight: $cb-height + ($cb-border * 2) + ($cb-vpadding * 2);
+$cb-backw: $cb-width * $back-mult;
+$cb-backh: $cb-height * $back-mult;
+
+$cb-width-md: $cb-width * $md-mult;
+$cb-height-md: $cb-height * $md-mult;
+$cb-vpadding-md: $cb-vpadding * $md-mult;
+$cb-hpadding-md: $cb-hpadding * $md-mult;
+$cb-eheight-md: $cb-height-md + ($cb-border * 2) + ($cb-vpadding-md * 2);
+$cb-backw-md: $cb-width-md * $back-mult;
+$cb-backh-md: $cb-height-md * $back-mult;
+
+$cb-width-lg: $cb-width * $lg-mult;
+$cb-height-lg: $cb-height * $lg-mult;
+$cb-vpadding-lg: $cb-vpadding * $lg-mult;
+$cb-hpadding-lg: $cb-hpadding * $lg-mult;
+$cb-eheight-lg: $cb-height-lg + ($cb-border * 2) + ($cb-vpadding-lg * 2);
+$cb-backw-lg: $cb-width-lg * $back-mult;
+$cb-backh-lg: $cb-height-lg * $back-mult;
+
 div.cardbox, div.handbox {
   display: inline-block;
   position: relative;
@@ -19,24 +46,22 @@ div.cardbox, div.handbox {
 }
 
 div.cardbox {
-  width: 74px; //73.5
-  height: 142px; //141.75
-  margin: 2px;
+  width: $cb-width;
+  height: $cb-height;
+  margin: $cb-vpadding $cb-hpadding;
   z-index: 5;
 
   @include mediaquery('medium') {
-    width: 88px; //88.2
-    height: 170px; //170.1
-    margin: 3px;
+    margin: $cb-vpadding-md $cb-hpadding-md;
+    width: $cb-width * $md-mult;
+    height: $cb-height * $md-mult;
   }
 
   @include mediaquery('large') {
-    width: 118px; //117.6
-    height: 227px; //226.8
-    margin: 4px;
+    margin: $cb-vpadding-lg $cb-hpadding-lg;
+    width: $cb-width * $lg-mult;
+    height: $cb-height * $lg-mult;
   }
-
-  @include transform( translate3d(0, 0, 0) );
 }
 
 div.handbox {
@@ -121,21 +146,56 @@ div.handbox {
   @include animation( fadeWhole 0.5s $ease-in-out-sine);
 }
 
+#spread-slot-20.cardbox, #spread-slot-11.cardbox, #spread-slot-10.cardbox,
+#spread-slot-21.cardbox, #spread-slot-0.cardbox, #spread-slot-9.cardbox {
+  @include transform-origin(center);
+}
+
+#spread-slot-20.cardbox {
+  @include transform( rotateZ(-45deg) );
+}
+
+#spread-slot-11.cardbox {
+  @include transform( rotateZ(45deg) );
+}
+
+#spread-slot-10.cardbox {
+  @include transform( translateY($cb-eheight / 2) rotateZ(45deg) );
+  @include mediaquery('medium') { @include transform( translateY($cb-eheight-md / 2 ) rotateZ(45deg) ); }
+  @include mediaquery('large') { @include transform( translateY($cb-eheight-lg / 2 ) rotateZ(45deg) ); }
+  &:empty{ visibility: hidden; }
+}
+
+#spread-slot-21.cardbox {
+  @include transform( translateY( -$cb-eheight / 2 ) rotateZ(-45deg) );
+  @include mediaquery('medium') { @include transform( translateY( -$cb-eheight-md / 2 ) rotateZ(-45deg) ); }
+  @include mediaquery('large') { @include transform( translateY( -$cb-eheight-lg / 2 ) rotateZ(-45deg) ); }
+  z-index: 0;
+}
+
+#spread-slot-0.cardbox {
+  @include transform( rotateZ(-45deg) );
+}
+
+#spread-slot-9.cardbox {
+  @include transform( rotateZ(45deg) );
+}
+
 #spread-slot-11.cardbox, #spread-slot-20.cardbox {
-  margin-left: 32px;
-  margin-right: 16px;
+  margin-left: 36px;
+  @include mediaquery(medium) { margin-left: 43px; };
+  @include mediaquery(large) { margin-left: 58px; };
 }
 
 #spread-slot-0.cardbox, #spread-slot-9.cardbox {
-  margin-left: 16px;
-  margin-right: 32px;
+  margin-right: 36px;
+  @include mediaquery(medium) { margin-right: 43px; };
+  @include mediaquery(large) { margin-right: 58px; };
 }
 
 div.card {
   position: absolute;
   top: 0; bottom: 0; right: 0; left: 0; // fill parent
-
-
   @include transform-style( preserve-3d );
   @include transition( transform 1s );
 
@@ -153,8 +213,10 @@ div.card {
 
   .back {
     background-image: url(<%= asset_path('tarot/back.png') %>) !important;
-    background-position: center center;
-    background-size: 225%;
+    background-position: center;
+    background-size: $cb-backw $cb-backh;
+    @include mediaquery('medium') { background-size: $cb-backw-md $cb-backh-md; }
+    @include mediaquery('large') { background-size: $cb-backw-lg $cb-backh-lg; }
     @include transform( rotateY( 180deg ) );
   }
 

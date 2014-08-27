@@ -45,8 +45,9 @@ body {
 }
 
 #context, #title, #draw, #submit, #spread, #collection {
-  margin: 3px auto 0 auto;
+  margin: 0 auto;
   padding: 0;
+  line-height: 0;
 }
 
 #hands {
@@ -64,7 +65,6 @@ body {
 }
 
 #submit {
-  padding-top: 2px;
   text-align: center;
 }
 

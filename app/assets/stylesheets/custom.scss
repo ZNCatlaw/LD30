@@ -1,6 +1,9 @@
 //@import url(//fonts.googleapis.com/css?family=Goudy+Bookletter+1911);
 @import url(//fonts.googleapis.com/css?family=Caudex:700,700italic);
 
+$md-mult: 1.2;
+$lg-mult: 1.6;
+
 @mixin mediaquery($point) {
   @if $point == medium {
     @media (min-width: 1200px) and (min-height: 780px) { @content; }
