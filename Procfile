@@ -1,2 +1,1 @@
-web:    bundle exec unicorn -c ./config/unicorn.rb
-#worker: bundle exec rake jobs:work
+web: bundle exec puma -w $PUMA_WORKERS -t $PUMA_MIN_THREADS:$PUMA_MAX_THREADS -p $PORT -e ${RACK_ENV:-development}

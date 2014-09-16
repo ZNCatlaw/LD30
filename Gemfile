@@ -1,65 +1,16 @@
 source 'https://rubygems.org'
 
-# Heroku uses the ruby version to configure your application's runtime.
-ruby '2.0.0'
+ruby '2.1.2'
 
-gem 'unicorn'
-gem 'rack-canonical-host'
-gem 'rails', '~> 4.1.5'
-gem 'pg'
+gem 'middleman', '~> 3.3.6'
+gem 'puma', '~> 2.9'
+gem 'rake', '~> 10.3'
+gem 'slim'
 
-gem 'turbolinks'
-gem 'simple_form', '~> 3.1.0.rc2'                      # Bootstrap 3 support
-gem 'slim-rails'
-
-group :development, :assets do
-  gem 'sass-rails'
-  gem 'bourbon'
-  # gem 'bootstrap-sass'
-  gem 'jquery-rails'
-  gem 'underscore-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-  gem 'asset_sync'
-end
-
-gem 'awesome_print'
-
-group :production, :acceptance do
-  gem 'rails_stdout_logging'
-  gem 'heroku_rails_deflate'
-end
-
-group :test do
-  gem 'fuubar'
-  gem 'jasminerice', github: 'bradphelan/jasminerice'  # Latest release still depends on haml.
-  gem 'capybara'
-  #gem 'capybara-email'
-  gem 'poltergeist'
-  gem 'factory_girl_rails'
-  #gem 'timecop'
-  gem 'database_cleaner'
-  gem 'simplecov'
-end
-
-group :test, :development do
-  gem 'rspec-rails'
-  #gem 'cane'
-  #gem 'morecane'
-end
+gem 'bourbon', require: false
+gem 'jquery-rails', require: false
+gem 'underscore-rails', require: false
 
 group :development do
-  gem 'spring'
-  gem 'spring-commands-rspec'
   gem 'foreman'
-  gem 'launchy'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'quiet_assets'
-  gem 'guard', '~> 2'
-  gem 'guard-rspec'
-  gem 'guard-jasmine'
-  gem 'guard-livereload'
-  gem 'rb-fsevent'
-  gem 'growl'
 end
