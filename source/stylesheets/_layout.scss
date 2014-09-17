@@ -23,6 +23,17 @@ body {
   }
 }
 
+#loading {
+  position: absolute;
+  top: 33%;
+  left: 0;
+  right: 0;
+  color: white;
+  text-shadow: 1px 1px 1px black;
+  text-align: center;
+  font-size: 3em;
+}
+
 #container {
   opacity: 0; //jQuery will fix this!
   @include transition( opacity 1s $ease-in-out-sine );

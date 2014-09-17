@@ -382,5 +382,6 @@ $(function () {
 });
 
 $(window).load(function(){
+    $("#loading").fadeOut(500);
     $("#container").css('opacity', 1);
 });
