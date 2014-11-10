@@ -2,7 +2,7 @@
   "main": "index.html",
   "name": "lrdf",
   "description": "La Roue de Fortune",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "window": {
     "title": "La Roue de Fortune",
     "icon": "link.png",
