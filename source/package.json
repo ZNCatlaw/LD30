@@ -3,7 +3,6 @@
   "name": "lrdf",
   "description": "La Roue de Fortune",
   "version": "0.1.0",
-  "keywords": [ "demo", "node-webkit" ],
   "window": {
     "title": "La Roue de Fortune",
     "icon": "link.png",
