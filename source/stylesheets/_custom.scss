@@ -1,5 +1,19 @@
 //@import url(//fonts.googleapis.com/css?family=Goudy+Bookletter+1911);
-@import url(//fonts.googleapis.com/css?family=Caudex:700,700italic);
+//@import url(//fonts.googleapis.com/css?family=Caudex:700,700italic);
+
+@font-face {
+  font-family: 'Caudex';
+  font-weight: 700;
+  src: font-url('font/Caudex-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'Caudex';
+  font-weight: 700;
+  font-style: italic;
+  src: font-url('font/Caudex-BoldItalic.ttf');
+}
+
 
 $base-width: 1024px;
 $base-height: 640px;
