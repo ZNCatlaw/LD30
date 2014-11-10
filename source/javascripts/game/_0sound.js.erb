@@ -8,6 +8,7 @@ music_sprites = {
 
 music = new Howl({
   src: ['sounds/music.ogg'],
+  preload: true,
   sprite: music_sprites,
   volume: 0,
   onload: function() { nextMusicSegment(); }
@@ -16,10 +17,12 @@ music = new Howl({
 sfx = {
   bell: new Howl({
     src: ['sounds/bell.ogg'],
+    preload: true,
     volume: 0.15
   }),
   shuffle: new Howl({
-    src: ['sounds/shuffle.ogg']
+    src: ['sounds/shuffle.ogg'],
+    preload: true
   })
 }
 
