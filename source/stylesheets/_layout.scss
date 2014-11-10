@@ -23,15 +23,18 @@ body {
   }
 }
 
-#loading {
+#victory {
+  opacity: 0;
+  @include transition( opacity 5s $ease-in-out-sine );
   position: absolute;
-  top: 33%;
+  top: 0;
   left: 0;
   right: 0;
-  color: white;
-  text-shadow: 1px 1px 1px black;
-  text-align: center;
-  font-size: 3em;
+  bottom: 0;
+  background-color: black;
+  background-image: image-url('images/successkid.jpg');
+  background-size: cover;
+  z-index: 500;
 }
 
 #container {

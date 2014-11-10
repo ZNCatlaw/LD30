@@ -453,7 +453,7 @@ CARDS = [
             }, 0);
 
             if (finished_hands >= 4) {
-                window.location = "http://parkhowell.com/wp-content/uploads/2011/02/Victory-Baby.jpg";
+                $("#victory").removeClass('hidden').css('opacity', 1);
             }
         }
     })
