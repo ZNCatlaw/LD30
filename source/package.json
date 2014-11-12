@@ -2,7 +2,7 @@
   "main": "index.html",
   "name": "lrdf",
   "description": "La Roue de Fortune",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "window": {
     "title": "La Roue de Fortune",
     "icon": "link.png",
@@ -12,7 +12,7 @@
     "height": 768,
     "position": "center",
     "min_width": 1024,
-    "min_height": 640,
+    "min_height": 650,
     "max_width": 1920,
     "max_height": 1200
   }

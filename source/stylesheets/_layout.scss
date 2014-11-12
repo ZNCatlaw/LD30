@@ -50,7 +50,7 @@ body {
 
   overflow: hidden;
   width: $base-width;
-  height: $base-height;
+  height: $base-height+10;
 
   @include mediaquery(medium) {
     width: $base-width * $md-mult;
