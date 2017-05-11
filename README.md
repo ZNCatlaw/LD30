@@ -12,3 +12,7 @@ be resolved as follows:
 brew install openssl
 gem install puma -v '2.9.1' -- --with-opt-include="/usr/local/opt/openssl/include"
 ```
+
+The project is built with some old version of middleman, probably.
+To start the server, run `middleman`. To build the website so as to
+publish it somewhere, use `middleman build`.
